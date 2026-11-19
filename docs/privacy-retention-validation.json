@@ -1,0 +1,14 @@
+{
+  "before": {
+    "expired_identity": 0,
+    "enabled": true,
+    "old_contacts": 0,
+    "legacy_profile_fields": 4
+  },
+  "after": {
+    "expired_identity": 0,
+    "enabled": true,
+    "old_contacts": 0,
+    "legacy_profile_fields": 0
+  }
+}

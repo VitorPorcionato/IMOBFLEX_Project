@@ -1,0 +1,26 @@
+Política de Privacidade — Imobflex
+Versão 2026-11-16 · Piloto acadêmico com dados fictícios
+
+Quem responde pelos dados
+Este é um ambiente acadêmico, não liberado para dados pessoais reais. A Central de Privacidade permite solicitações verificadas por e-mail e gera protocolo. Antes da operação comercial, a imobiliária deverá publicar razão social, identificação e canal monitorado do controlador, responsáveis e fornecedores reais. As medidas técnicas deste piloto não representam certificação jurídica.
+
+Dados e finalidades
+Para criar conta: nome, e-mail e senha (armazenada com hash), necessários para autenticar e prestar o atendimento solicitado. Não exigimos CPF ou endereço no cadastro. Para responder contatos: nome, e-mail, mensagem e telefone opcional. Para visitas: imóvel, cliente, corretor, horário e resultado. Os procedimentos de atendimento solicitados pelo usuário são separados da publicidade.
+Somente quando houver regra de entrada documentada e vigente do imóvel, pedimos CPF para identificar o visitante; a justificativa e o destinatário aparecem antes da coleta. O CPF fica cifrado e restrito à equipe responsável, sem inclusão em e-mails. A necessidade e a base legal específicas devem ser validadas pela imobiliária antes de usar dados reais.
+Para prestação de contas: versão dos termos, horário do aceite e histórico mínimo das escolhas. Para marketing por e-mail: autorização opcional específica, após confirmação do e-mail. O piloto não habilita campanhas comerciais. A revogação impede novos envios promocionais, inclusive os em fila.
+
+Cookies e compartilhamento
+Cookies de sessão e proteção de formulários são necessários para autenticação e segurança. O cookie imobflex_privacy guarda apenas sua escolha de opcionais por seis meses. Não usamos analytics, pixels, publicidade comportamental ou rastreadores opcionais. Aceitar opcionais hoje não instala rastreador. Recusar ou retirar a escolha mantém o atendimento disponível. Qualquer futura ferramenta opcional exigirá integração com a preferência e informação prévia.
+Fontes e imagens de demonstração são locais. E-mails de teste são encaminhados ao Mailpit local. O WhatsApp só é aberto por sua ação e tem política própria. Consultar CEP envia o CEP ao ViaCEP somente ao clicar, com preenchimento manual disponível. O controlador deverá descrever fornecedores e eventuais transferências internacionais reais antes de produção.
+
+Prazos do piloto
+CPF da visita: remoção no cancelamento ou até 24 horas após o fim previsto, mesmo sem resultado registrado.
+Contatos, mensagens e visitas identificáveis: 180 dias após último atendimento ou encerramento. Conta ativa: enquanto utilizada; após 12 meses sem acesso, aviso e 30 dias antes de anonimização, ressalvados vínculos operacionais pendentes que serão informados.
+Provas mínimas de aceite: relação ativa e 12 meses após encerramento. Escolhas de marketing: 12 meses após revogação ou encerramento. Pedidos de privacidade: 12 meses após conclusão. Tokens: invalidação no uso ou vencimento e limpeza diária. Conteúdo de e-mails: até 30 dias após envio ou falha definitiva. Backups do piloto: até 30 dias, com reaplicação de exclusões antes de restaurar acesso. Incidentes: registros restritos por pelo menos cinco anos.
+Esses são prazos operacionais do piloto, não prazos legais universais. Exceções de conservação exigem motivo, prazo e acesso restrito. Não se deve aplicar estes prazos automaticamente a contratos e operações reais sem revisão.
+
+Seus direitos
+Na Central de Privacidade, consulte seus dados e aceites, baixe uma cópia, altere marketing e solicite acesso completo ou exclusão. Quem apenas enviou contato pode verificar seu e-mail sem criar conta. Não pedimos cópia de documento para este fluxo. A confirmação simplificada é imediata; a declaração completa de acesso será acompanhada em até 15 dias. Exclusão remove ou anonimiza dados dispensáveis; quando houver vínculo ou fundamento de conservação, o protocolo informa motivo e próximo passo. Você pode questionar o tratamento e procurar a ANPD ou órgãos de defesa do consumidor. Desativar conta apenas encerra acesso e não é pedido de exclusão.
+
+Segurança e incidentes
+Aplicamos restrição por perfil, proteção CSRF, hash de senhas, cifragem do CPF e rotina de retenção. Não há garantia de segurança absoluta. Se um incidente puder causar risco ou dano relevante, o controlador deverá comunicar à ANPD e aos titulares afetados, em regra em três dias úteis da ciência de que o incidente afetou dados pessoais, ressalvadas regras específicas aplicáveis. O sistema registra prazo e protocolo; comunicação real exige atuação do responsável. Nos testes, avisos ficam no Mailpit.

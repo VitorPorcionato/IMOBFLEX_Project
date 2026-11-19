@@ -1,0 +1,54 @@
+services:
+  mysql:
+    image: mysql:8.4.9
+    environment:
+      MYSQL_DATABASE: imobflex
+      MYSQL_USER: imobflex
+      MYSQL_PASSWORD: ${DATABASE_PASSWORD:?Set DATABASE_PASSWORD in .env}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?Set MYSQL_ROOT_PASSWORD in .env}
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -u root -p$$MYSQL_ROOT_PASSWORD --silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+  mailpit:
+    image: axllent/mailpit:v1.27.8
+    ports: ["127.0.0.1:8025:8025"]
+  backend:
+    build:
+      context: .
+      dockerfile: backend-imobflex/Dockerfile
+    environment:
+      DATABASE_URL: jdbc:mysql://mysql:3306/imobflex?connectionTimeZone=UTC&forceConnectionTimeZoneToSession=true
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      PRIVACY_ENCRYPTION_KEY: ${PRIVACY_ENCRYPTION_KEY:-}
+      PRIVACY_RETENTION_ENABLED: ${PRIVACY_RETENTION_ENABLED:-false}
+      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE:-default}
+      DEMO_PASSWORD: ${DEMO_PASSWORD:-}
+      MAIL_HOST: mailpit
+      MAIL_PORT: 1025
+      PUBLIC_URL: ${PUBLIC_URL:-http://localhost:3000}
+      COOKIE_SECURE: ${COOKIE_SECURE:-false}
+      BOOTSTRAP_EMAIL: ${BOOTSTRAP_EMAIL}
+      BOOTSTRAP_PASSWORD: ${BOOTSTRAP_PASSWORD}
+      UPLOAD_PATH: /app/uploads
+    volumes: ["uploads:/app/uploads"]
+    depends_on:
+      mysql: {condition: service_healthy}
+      mailpit: {condition: service_started}
+  frontend:
+    build:
+      context: frontend-imobflex
+      args:
+        NEXT_PUBLIC_SITE_URL: ${PUBLIC_URL:-http://localhost:3000}
+        NEXT_PUBLIC_WHATSAPP: ${WHATSAPP:-}
+    environment:
+      BACKEND_URL: http://backend:8080
+      NEXT_PUBLIC_SITE_URL: ${PUBLIC_URL:-http://localhost:3000}
+    ports: ["127.0.0.1:3000:3000"]
+    depends_on: [backend]
+volumes:
+  mysql-data:
+  uploads:
