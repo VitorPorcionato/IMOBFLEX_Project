@@ -1,0 +1,10 @@
+{
+  "requests": 400,
+  "concurrency": 20,
+  "properties": 1000,
+  "p50_ms": 69.88,
+  "p95_ms": 144.16,
+  "max_ms": 422.4,
+  "restored_login": true,
+  "restored_image": true
+}

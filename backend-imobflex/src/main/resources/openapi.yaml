@@ -1,0 +1,2703 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "IMOBFLEX API",
+    "version": "0.1.0",
+    "description": "Sessões JDBC e CSRF. Obtenha /auth/csrf e envie o headerName retornado em todas as operações de escrita. Preços decimais em strings; instantes ISO 8601 UTC. Perfil e propriedade do recurso são verificados no servidor."
+  },
+  "servers": [
+    {
+      "url": "/api/v1"
+    }
+  ],
+  "security": [
+    {
+      "session": []
+    }
+  ],
+  "paths": {
+    "/health": {
+      "get": {
+        "summary": "Saúde do banco",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Operação concluída; GET retorna o recurso ou coleção."
+          },
+          "400": {
+            "description": "Dados inválidos — Problem Details com detail e errors por campo."
+          },
+          "401": {
+            "description": "Sessão ausente, expirada ou conta indisponível."
+          },
+          "403": {
+            "description": "Perfil, vínculo ou CSRF inválido."
+          },
+          "404": {
+            "description": "Recurso não encontrado."
+          },
+          "409": {
+            "description": "Conflito de estado, unicidade ou reserva."
+          },
+          "429": {
+            "description": "Bloqueio temporário de login."
+          }
+        },
+        "security": []
+      }
+    },
+    "/auth/csrf": {
+      "get": {
+        "summary": "Obter token CSRF e nome do cabeçalho",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Operação concluída; GET retorna o recurso ou coleção."
+          },
+          "400": {
+            "description": "Dados inválidos — Problem Details com detail e errors por campo."
+          },
+          "401": {
+            "description": "Sessão ausente, expirada ou conta indisponível."
+          },
+          "403": {
+            "description": "Perfil, vínculo ou CSRF inválido."
+          },
+          "404": {
+            "description": "Recurso não encontrado."
+          },
+          "409": {
+            "description": "Conflito de estado, unicidade ou reserva."
+          },
+          "429": {
+            "description": "Bloqueio temporário de login."
+          }
+        },
+        "security": []
+      }
+    },
+    "/auth/register": {
+      "post": {
+        "summary": "Autocadastro de cliente",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Operação concluída; GET retorna o recurso ou coleção."
+          },
+          "400": {
+            "description": "Dados inválidos — Problem Details com detail e errors por campo."
+          },
+          "401": {
+            "description": "Sessão ausente, expirada ou conta indisponível."
+          },
+          "403": {
+            "description": "Perfil, vínculo ou CSRF inválido."
+          },
+          "404": {
+            "description": "Recurso não encontrado."
+          },
+          "409": {
+            "description": "Conflito de estado, unicidade ou reserva."
+          },
+          "429": {
+            "description": "Bloqueio temporário de login."
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Registration"
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "summary": "Autenticar e renovar identificador de sessão",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Operação concluída; GET retorna o recurso ou coleção."
+          },
+          "400": {
+            "description": "Dados inválidos — Problem Details com detail e errors por campo."
+          },
+          "401": {
+            "description": "Sessão ausente, expirada ou conta indisponível."
+          },
+          "403": {
+            "description": "Perfil, vínculo ou CSRF inválido."
+          },
+          "404": {
+            "description": "Recurso não encontrado."
+          },
+          "409": {
+            "description": "Conflito de estado, unicidade ou reserva."
+          },
+          "429": {
+            "description": "Bloqueio temporário de login."
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "email",
+                  "password"
+                ]
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/auth/forgot-password": {
+      "post": {
+        "summary": "Enviar token sem revelar existência da conta",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Operação concluída; GET retorna o recurso ou coleção."
+          },
+          "400": {
+            "description": "Dados inválidos — Problem Details com detail e errors por campo."
+          },
+          "401": {
+            "description": "Sessão ausente, expirada ou conta indisponível."
+          },
+          "403": {
+            "description": "Perfil, vínculo ou CSRF inválido."
+          },
+          "404": {
+            "description": "Recurso não encontrado."
+          },
+          "409": {
+            "description": "Conflito de estado, unicidade ou reserva."
+          },
+          "429": {
+            "description": "Bloqueio temporário de login."
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "email"
+                ]
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/auth/resend-confirmation": {
+      "post": {
+        "summary": "Enviar token sem revelar existência da conta",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Operação concluída; GET retorna o recurso ou coleção."
+          },
+          "400": {
+            "description": "Dados inválidos — Problem Details com detail e errors por campo."
+          },
+          "401": {
+            "description": "Sessão ausente, expirada ou conta indisponível."
+          },
+          "403": {
+            "description": "Perfil, vínculo ou CSRF inválido."
+          },
+          "404": {
+            "description": "Recurso não encontrado."
+          },
+          "409": {
+            "description": "Conflito de estado, unicidade ou reserva."
+          },
+          "429": {
+            "description": "Bloqueio temporário de login."
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "email"
+                ]
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/auth/confirm": {
+      "post": {
+        "summary": "Consumir token de uso único",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Operação concluída; GET retorna o recurso ou coleção."
+          },
+          "400": {
+            "description": "Dados inválidos — Problem Details com detail e errors por campo."
+          },
+          "401": {
+            "description": "Sessão ausente, expirada ou conta indisponível."
+          },
+          "403": {
+            "description": "Perfil, vínculo ou CSRF inválido."
+          },
+          "404": {
+            "description": "Recurso não encontrado."
+          },
+          "409": {
+            "description": "Conflito de estado, unicidade ou reserva."
+          },
+          "429": {
+            "description": "Bloqueio temporário de login."
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "token": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "token"
+                ]
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/auth/reset-password": {
+      "post": {
+        "summary": "Consumir token de uso único",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Operação concluída; GET retorna o recurso ou coleção."
+          },
+          "400": {
+            "description": "Dados inválidos — Problem Details com detail e errors por campo."
+          },
+          "401": {
+            "description": "Sessão ausente, expirada ou conta indisponível."
+          },
+          "403": {
+            "description": "Perfil, vínculo ou CSRF inválido."
+          },
+          "404": {
+            "description": "Recurso não encontrado."
+          },
+          "409": {
+            "description": "Conflito de estado, unicidade ou reserva."
+          },
+          "429": {
+            "description": "Bloqueio temporário de login."
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "token": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "token",
+                  "password"
+                ]
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/logout": {
+      "post": {
+        "summary": "Encerrar sessão",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Operação concluída; GET retorna o recurso ou coleção."
+          },
+          "400": {
+            "description": "Dados inválidos — Problem Details com detail e errors por campo."
+          },
+          "401": {
+            "description": "Sessão ausente, expirada ou conta indisponível."
+          },
+          "403": {
+            "description": "Perfil, vínculo ou CSRF inválido."
+          },
+          "404": {
+            "description": "Recurso não encontrado."
+          },
+          "409": {
+            "description": "Conflito de estado, unicidade ou reserva."
+          },
+          "429": {
+            "description": "Bloqueio temporário de login."
+          }
+        }
+      }
+    },
+    "/me": {
+      "get": {
+        "summary": "Perfil próprio",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Operação concluída; GET retorna o recurso ou coleção."
+          },
+          "400": {
+            "description": "Dados inválidos — Problem Details com detail e errors por campo."
+          },
+          "401": {
+            "description": "Sessão ausente, expirada ou conta indisponível."
+          },
+          "403": {
+            "description": "Perfil, vínculo ou CSRF inválido."
+          },
+          "404": {
+            "description": "Recurso não encontrado."
+          },
+          "409": {
+            "description": "Conflito de estado, unicidade ou reserva."
+          },
+          "429": {
+            "description": "Bloqueio temporário de login."
+          }
+        }
+      },
+      "put": {
+        "summary": "Editar perfil; mudança de e-mail revoga sessões",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Operação concluída; GET retorna o recurso ou coleção."
+          },
+          "400": {
+            "description": "Dados inválidos — Problem Details com detail e errors por campo."
+          },
+          "401": {
+            "description": "Sessão ausente, expirada ou conta indisponível."
+          },
+          "403": {
+            "description": "Perfil, vínculo ou CSRF inválido."
+          },
+          "404": {
+            "description": "Recurso não encontrado."
+          },
+          "409": {
+            "description": "Conflito de estado, unicidade ou reserva."
+          },
+          "429": {
+            "description": "Bloqueio temporário de login."
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "phone": {
+                    "type": "string"
+                  },
+                  "address": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name",
+                  "email",
+                  "phone",
+                  "address"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Desativar conta própria",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Operação concluída; GET retorna o recurso ou coleção."
+          },
+          "400": {
+            "description": "Dados inválidos — Problem Details com detail e errors por campo."
+          },
+          "401": {
+            "description": "Sessão ausente, expirada ou conta indisponível."
+          },
+          "403": {
+            "description": "Perfil, vínculo ou CSRF inválido."
+          },
+          "404": {
+            "description": "Recurso não encontrado."
+          },
+          "409": {
+            "description": "Conflito de estado, unicidade ou reserva."
+          },
+          "429": {
+            "description": "Bloqueio temporário de login."
+          }
+        }
+      }
+    },
+    "/public/properties": {
+      "get": {
+        "summary": "Catálogo paginado; dados privados omitidos",
+        "parameters": [
+          {
+            "name": "purpose",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "minPrice",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "maxPrice",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "minArea",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "maxArea",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "bedrooms",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "bathrooms",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "parking",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação concluída; GET retorna o recurso ou coleção."
+          },
+          "400": {
+            "description": "Dados inválidos — Problem Details com detail e errors por campo."
+          },
+          "401": {
+            "description": "Sessão ausente, expirada ou conta indisponível."
+          },
+          "403": {
+            "description": "Perfil, vínculo ou CSRF inválido."
+          },
+          "404": {
+            "description": "Recurso não encontrado."
+          },
+          "409": {
+            "description": "Conflito de estado, unicidade ou reserva."
+          },
+          "429": {
+            "description": "Bloqueio temporário de login."
+          }
+        },
+        "security": []
+      }
+    },
+    "/public/properties/{id}": {
+      "get": {
+        "summary": "Detalhes públicos e galeria",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação concluída; GET retorna o recurso ou coleção."
+          },
+          "400": {
+            "description": "Dados inválidos — Problem Details com detail e errors por campo."
+          },
+          "401": {
+            "description": "Sessão ausente, expirada ou conta indisponível."
+          },
+          "403": {
+            "description": "Perfil, vínculo ou CSRF inválido."
+          },
+          "404": {
+            "description": "Recurso não encontrado."
+          },
+          "409": {
+            "description": "Conflito de estado, unicidade ou reserva."
+          },
+          "429": {
+            "description": "Bloqueio temporário de login."
+          }
+        },
+        "security": []
+      }
+    },
+    "/public/images/{name}": {
+      "get": {
+        "summary": "JPEG; imagens privadas exigem autorização",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação concluída; GET retorna o recurso ou coleção."
+          },
+          "400": {
+            "description": "Dados inválidos — Problem Details com detail e errors por campo."
+          },
+          "401": {
+            "description": "Sessão ausente, expirada ou conta indisponível."
+          },
+          "403": {
+            "description": "Perfil, vínculo ou CSRF inválido."
+          },
+          "404": {
+            "description": "Recurso não encontrado."
+          },
+          "409": {
+            "description": "Conflito de estado, unicidade ou reserva."
+          },
+          "429": {
+            "description": "Bloqueio temporário de login."
+          }
+        },
+        "security": []
+      }
+    },
+    "/properties": {
+      "get": {
+        "summary": "Imóveis da equipe; administrador vê todos",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Operação concluída; GET retorna o recurso ou coleção."
+          },
+          "400": {
+            "description": "Dados inválidos — Problem Details com detail e errors por campo."
+          },
+          "401": {
+            "description": "Sessão ausente, expirada ou conta indisponível."
+          },
+          "403": {
+            "description": "Perfil, vínculo ou CSRF inválido."
+          },
+          "404": {
+            "description": "Recurso não encontrado."
+          },
+          "409": {
+            "description": "Conflito de estado, unicidade ou reserva."
+          },
+          "429": {
+            "description": "Bloqueio temporário de login."
+          }
+        }
+      },
+      "post": {
+        "summary": "Criar imóvel pendente",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Operação concluída; GET retorna o recurso ou coleção."
+          },
+          "400": {
+            "description": "Dados inválidos — Problem Details com detail e errors por campo."
+          },
+          "401": {
+            "description": "Sessão ausente, expirada ou conta indisponível."
+          },
+          "403": {
+            "description": "Perfil, vínculo ou CSRF inválido."
+          },
+          "404": {
+            "description": "Recurso não encontrado."
+          },
+          "409": {
+            "description": "Conflito de estado, unicidade ou reserva."
+          },
+          "429": {
+            "description": "Bloqueio temporário de login."
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PropertyInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/properties/{id}": {
+      "get": {
+        "summary": "Dados completos para edição",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação concluída; GET retorna o recurso ou coleção."
+          },
+          "400": {
+            "description": "Dados inválidos — Problem Details com detail e errors por campo."
+          },
+          "401": {
+            "description": "Sessão ausente, expirada ou conta indisponível."
+          },
+          "403": {
+            "description": "Perfil, vínculo ou CSRF inválido."
+          },
+          "404": {
+            "description": "Recurso não encontrado."
+          },
+          "409": {
+            "description": "Conflito de estado, unicidade ou reserva."
+          },
+          "429": {
+            "description": "Bloqueio temporário de login."
+          }
+        }
+      },
+      "put": {
+        "summary": "Editar imóvel atribuído",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação concluída; GET retorna o recurso ou coleção."
+          },
+          "400": {
+            "description": "Dados inválidos — Problem Details com detail e errors por campo."
+          },
+          "401": {
+            "description": "Sessão ausente, expirada ou conta indisponível."
+          },
+          "403": {
+            "description": "Perfil, vínculo ou CSRF inválido."
+          },
+          "404": {
+            "description": "Recurso não encontrado."
+          },
+          "409": {
+            "description": "Conflito de estado, unicidade ou reserva."
+          },
+          "429": {
+            "description": "Bloqueio temporário de login."
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PropertyInput"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Excluir pendente sem interações",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação concluída; GET retorna o recurso ou coleção."
+          },
+          "400": {
+            "description": "Dados inválidos — Problem Details com detail e errors por campo."
+          },
+          "401": {
+            "description": "Sessão ausente, expirada ou conta indisponível."
+          },
+          "403": {
+            "description": "Perfil, vínculo ou CSRF inválido."
+          },
+          "404": {
+            "description": "Recurso não encontrado."
+          },
+          "409": {
+            "description": "Conflito de estado, unicidade ou reserva."
+          },
+          "429": {
+            "description": "Bloqueio temporário de login."
+          }
+        }
+      }
+    },
+    "/properties/{id}/status": {
+      "patch": {
+        "summary": "Transição, publicação e cancelamentos atômicos",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação concluída; GET retorna o recurso ou coleção."
+          },
+          "400": {
+            "description": "Dados inválidos — Problem Details com detail e errors por campo."
+          },
+          "401": {
+            "description": "Sessão ausente, expirada ou conta indisponível."
+          },
+          "403": {
+            "description": "Perfil, vínculo ou CSRF inválido."
+          },
+          "404": {
+            "description": "Recurso não encontrado."
+          },
+          "409": {
+            "description": "Conflito de estado, unicidade ou reserva."
+          },
+          "429": {
+            "description": "Bloqueio temporário de login."
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/properties/{id}/images": {
+      "post": {
+        "summary": "Upload validado de JPG/PNG",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação concluída; GET retorna o recurso ou coleção."
+          },
+          "400": {
+            "description": "Dados inválidos — Problem Details com detail e errors por campo."
+          },
+          "401": {
+            "description": "Sessão ausente, expirada ou conta indisponível."
+          },
+          "403": {
+            "description": "Perfil, vínculo ou CSRF inválido."
+          },
+          "404": {
+            "description": "Recurso não encontrado."
+          },
+          "409": {
+            "description": "Conflito de estado, unicidade ou reserva."
+          },
+          "429": {
+            "description": "Bloqueio temporário de login."
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "files"
+                ],
+                "properties": {
+                  "files": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    },
+                    "maxItems": 20
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/properties/{id}/images/{image}/cover": {
+      "put": {
+        "summary": "Definir capa",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "image",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação concluída; GET retorna o recurso ou coleção."
+          },
+          "400": {
+            "description": "Dados inválidos — Problem Details com detail e errors por campo."
+          },
+          "401": {
+            "description": "Sessão ausente, expirada ou conta indisponível."
+          },
+          "403": {
+            "description": "Perfil, vínculo ou CSRF inválido."
+          },
+          "404": {
+            "description": "Recurso não encontrado."
+          },
+          "409": {
+            "description": "Conflito de estado, unicidade ou reserva."
+          },
+          "429": {
+            "description": "Bloqueio temporário de login."
+          }
+        }
+      }
+    },
+    "/properties/{id}/images/{image}": {
+      "delete": {
+        "summary": "Remover imagem preservando mínimo de publicadas",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "image",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação concluída; GET retorna o recurso ou coleção."
+          },
+          "400": {
+            "description": "Dados inválidos — Problem Details com detail e errors por campo."
+          },
+          "401": {
+            "description": "Sessão ausente, expirada ou conta indisponível."
+          },
+          "403": {
+            "description": "Perfil, vínculo ou CSRF inválido."
+          },
+          "404": {
+            "description": "Recurso não encontrado."
+          },
+          "409": {
+            "description": "Conflito de estado, unicidade ou reserva."
+          },
+          "429": {
+            "description": "Bloqueio temporário de login."
+          }
+        }
+      }
+    },
+    "/properties/{id}/slots": {
+      "get": {
+        "summary": "Horários livres para cliente autenticado",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "day",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação concluída; GET retorna o recurso ou coleção."
+          },
+          "400": {
+            "description": "Dados inválidos — Problem Details com detail e errors por campo."
+          },
+          "401": {
+            "description": "Sessão ausente, expirada ou conta indisponível."
+          },
+          "403": {
+            "description": "Perfil, vínculo ou CSRF inválido."
+          },
+          "404": {
+            "description": "Recurso não encontrado."
+          },
+          "409": {
+            "description": "Conflito de estado, unicidade ou reserva."
+          },
+          "429": {
+            "description": "Bloqueio temporário de login."
+          }
+        }
+      }
+    },
+    "/visits": {
+      "get": {
+        "summary": "Visitas restritas ao perfil",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Operação concluída; GET retorna o recurso ou coleção."
+          },
+          "400": {
+            "description": "Dados inválidos — Problem Details com detail e errors por campo."
+          },
+          "401": {
+            "description": "Sessão ausente, expirada ou conta indisponível."
+          },
+          "403": {
+            "description": "Perfil, vínculo ou CSRF inválido."
+          },
+          "404": {
+            "description": "Recurso não encontrado."
+          },
+          "409": {
+            "description": "Conflito de estado, unicidade ou reserva."
+          },
+          "429": {
+            "description": "Bloqueio temporário de login."
+          }
+        }
+      },
+      "post": {
+        "summary": "Reservar horário com bloqueios transacionais",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Operação concluída; GET retorna o recurso ou coleção."
+          },
+          "400": {
+            "description": "Dados inválidos — Problem Details com detail e errors por campo."
+          },
+          "401": {
+            "description": "Sessão ausente, expirada ou conta indisponível."
+          },
+          "403": {
+            "description": "Perfil, vínculo ou CSRF inválido."
+          },
+          "404": {
+            "description": "Recurso não encontrado."
+          },
+          "409": {
+            "description": "Conflito de estado, unicidade ou reserva."
+          },
+          "429": {
+            "description": "Bloqueio temporário de login."
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "property_id": {
+                    "type": "integer"
+                  },
+                  "starts_at": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "property_id",
+                  "starts_at"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/visits/{id}/status": {
+      "patch": {
+        "summary": "Confirmar, cancelar ou registrar resultado",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação concluída; GET retorna o recurso ou coleção."
+          },
+          "400": {
+            "description": "Dados inválidos — Problem Details com detail e errors por campo."
+          },
+          "401": {
+            "description": "Sessão ausente, expirada ou conta indisponível."
+          },
+          "403": {
+            "description": "Perfil, vínculo ou CSRF inválido."
+          },
+          "404": {
+            "description": "Recurso não encontrado."
+          },
+          "409": {
+            "description": "Conflito de estado, unicidade ou reserva."
+          },
+          "429": {
+            "description": "Bloqueio temporário de login."
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/calendar": {
+      "get": {
+        "summary": "Disponibilidade, bloqueios, anos e feriados",
+        "parameters": [
+          {
+            "name": "broker_id",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação concluída; GET retorna o recurso ou coleção."
+          },
+          "400": {
+            "description": "Dados inválidos — Problem Details com detail e errors por campo."
+          },
+          "401": {
+            "description": "Sessão ausente, expirada ou conta indisponível."
+          },
+          "403": {
+            "description": "Perfil, vínculo ou CSRF inválido."
+          },
+          "404": {
+            "description": "Recurso não encontrado."
+          },
+          "409": {
+            "description": "Conflito de estado, unicidade ou reserva."
+          },
+          "429": {
+            "description": "Bloqueio temporário de login."
+          }
+        }
+      },
+      "put": {
+        "summary": "Substituir disponibilidade semanal",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Operação concluída; GET retorna o recurso ou coleção."
+          },
+          "400": {
+            "description": "Dados inválidos — Problem Details com detail e errors por campo."
+          },
+          "401": {
+            "description": "Sessão ausente, expirada ou conta indisponível."
+          },
+          "403": {
+            "description": "Perfil, vínculo ou CSRF inválido."
+          },
+          "404": {
+            "description": "Recurso não encontrado."
+          },
+          "409": {
+            "description": "Conflito de estado, unicidade ou reserva."
+          },
+          "429": {
+            "description": "Bloqueio temporário de login."
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "broker_id",
+                  "windows"
+                ],
+                "properties": {
+                  "broker_id": {
+                    "type": "integer"
+                  },
+                  "windows": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "weekday": {
+                          "type": "integer"
+                        },
+                        "start_hour": {
+                          "type": "integer"
+                        },
+                        "end_hour": {
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "weekday",
+                        "start_hour",
+                        "end_hour"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/calendar/blocks": {
+      "post": {
+        "summary": "Bloquear período sem visitas ativas",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Operação concluída; GET retorna o recurso ou coleção."
+          },
+          "400": {
+            "description": "Dados inválidos — Problem Details com detail e errors por campo."
+          },
+          "401": {
+            "description": "Sessão ausente, expirada ou conta indisponível."
+          },
+          "403": {
+            "description": "Perfil, vínculo ou CSRF inválido."
+          },
+          "404": {
+            "description": "Recurso não encontrado."
+          },
+          "409": {
+            "description": "Conflito de estado, unicidade ou reserva."
+          },
+          "429": {
+            "description": "Bloqueio temporário de login."
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "broker_id": {
+                    "type": "integer"
+                  },
+                  "starts_at": {
+                    "type": "string"
+                  },
+                  "ends_at": {
+                    "type": "string"
+                  },
+                  "reason": {
+                    "type": "string"
+                  },
+                  "property_id": {
+                    "type": [
+                      "integer",
+                      "null"
+                    ]
+                  }
+                },
+                "required": [
+                  "broker_id",
+                  "starts_at",
+                  "ends_at",
+                  "reason"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/calendar/blocks/{id}": {
+      "delete": {
+        "summary": "Remover bloqueio",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação concluída; GET retorna o recurso ou coleção."
+          },
+          "400": {
+            "description": "Dados inválidos — Problem Details com detail e errors por campo."
+          },
+          "401": {
+            "description": "Sessão ausente, expirada ou conta indisponível."
+          },
+          "403": {
+            "description": "Perfil, vínculo ou CSRF inválido."
+          },
+          "404": {
+            "description": "Recurso não encontrado."
+          },
+          "409": {
+            "description": "Conflito de estado, unicidade ou reserva."
+          },
+          "429": {
+            "description": "Bloqueio temporário de login."
+          }
+        }
+      }
+    },
+    "/calendar/holidays": {
+      "put": {
+        "summary": "Administrador cadastra ou altera feriado",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Operação concluída; GET retorna o recurso ou coleção."
+          },
+          "400": {
+            "description": "Dados inválidos — Problem Details com detail e errors por campo."
+          },
+          "401": {
+            "description": "Sessão ausente, expirada ou conta indisponível."
+          },
+          "403": {
+            "description": "Perfil, vínculo ou CSRF inválido."
+          },
+          "404": {
+            "description": "Recurso não encontrado."
+          },
+          "409": {
+            "description": "Conflito de estado, unicidade ou reserva."
+          },
+          "429": {
+            "description": "Bloqueio temporário de login."
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "day": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "day",
+                  "name"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/calendar/holidays/{day}": {
+      "delete": {
+        "summary": "Administrador remove feriado",
+        "parameters": [
+          {
+            "name": "day",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação concluída; GET retorna o recurso ou coleção."
+          },
+          "400": {
+            "description": "Dados inválidos — Problem Details com detail e errors por campo."
+          },
+          "401": {
+            "description": "Sessão ausente, expirada ou conta indisponível."
+          },
+          "403": {
+            "description": "Perfil, vínculo ou CSRF inválido."
+          },
+          "404": {
+            "description": "Recurso não encontrado."
+          },
+          "409": {
+            "description": "Conflito de estado, unicidade ou reserva."
+          },
+          "429": {
+            "description": "Bloqueio temporário de login."
+          }
+        }
+      }
+    },
+    "/calendar/years/{year}": {
+      "put": {
+        "summary": "Administrador confirma cobertura anual",
+        "parameters": [
+          {
+            "name": "year",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação concluída; GET retorna o recurso ou coleção."
+          },
+          "400": {
+            "description": "Dados inválidos — Problem Details com detail e errors por campo."
+          },
+          "401": {
+            "description": "Sessão ausente, expirada ou conta indisponível."
+          },
+          "403": {
+            "description": "Perfil, vínculo ou CSRF inválido."
+          },
+          "404": {
+            "description": "Recurso não encontrado."
+          },
+          "409": {
+            "description": "Conflito de estado, unicidade ou reserva."
+          },
+          "429": {
+            "description": "Bloqueio temporário de login."
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "summary": "Administrador lista usuários",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Operação concluída; GET retorna o recurso ou coleção."
+          },
+          "400": {
+            "description": "Dados inválidos — Problem Details com detail e errors por campo."
+          },
+          "401": {
+            "description": "Sessão ausente, expirada ou conta indisponível."
+          },
+          "403": {
+            "description": "Perfil, vínculo ou CSRF inválido."
+          },
+          "404": {
+            "description": "Recurso não encontrado."
+          },
+          "409": {
+            "description": "Conflito de estado, unicidade ou reserva."
+          },
+          "429": {
+            "description": "Bloqueio temporário de login."
+          }
+        }
+      },
+      "post": {
+        "summary": "Administrador cria corretor/proprietário",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Operação concluída; GET retorna o recurso ou coleção."
+          },
+          "400": {
+            "description": "Dados inválidos — Problem Details com detail e errors por campo."
+          },
+          "401": {
+            "description": "Sessão ausente, expirada ou conta indisponível."
+          },
+          "403": {
+            "description": "Perfil, vínculo ou CSRF inválido."
+          },
+          "404": {
+            "description": "Recurso não encontrado."
+          },
+          "409": {
+            "description": "Conflito de estado, unicidade ou reserva."
+          },
+          "429": {
+            "description": "Bloqueio temporário de login."
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "role",
+                  "user"
+                ],
+                "properties": {
+                  "role": {
+                    "type": "string",
+                    "enum": [
+                      "BROKER",
+                      "OWNER"
+                    ]
+                  },
+                  "user": {
+                    "$ref": "#/components/schemas/Registration"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/options": {
+      "get": {
+        "summary": "Equipe consulta opções de vínculo",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Operação concluída; GET retorna o recurso ou coleção."
+          },
+          "400": {
+            "description": "Dados inválidos — Problem Details com detail e errors por campo."
+          },
+          "401": {
+            "description": "Sessão ausente, expirada ou conta indisponível."
+          },
+          "403": {
+            "description": "Perfil, vínculo ou CSRF inválido."
+          },
+          "404": {
+            "description": "Recurso não encontrado."
+          },
+          "409": {
+            "description": "Conflito de estado, unicidade ou reserva."
+          },
+          "429": {
+            "description": "Bloqueio temporário de login."
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "delete": {
+        "summary": "Administrador desativa conta sem apagar histórico",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação concluída; GET retorna o recurso ou coleção."
+          },
+          "400": {
+            "description": "Dados inválidos — Problem Details com detail e errors por campo."
+          },
+          "401": {
+            "description": "Sessão ausente, expirada ou conta indisponível."
+          },
+          "403": {
+            "description": "Perfil, vínculo ou CSRF inválido."
+          },
+          "404": {
+            "description": "Recurso não encontrado."
+          },
+          "409": {
+            "description": "Conflito de estado, unicidade ou reserva."
+          },
+          "429": {
+            "description": "Bloqueio temporário de login."
+          }
+        }
+      }
+    },
+    "/public/contacts": {
+      "post": {
+        "summary": "Contato público vinculado ao imóvel",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Operação concluída; GET retorna o recurso ou coleção."
+          },
+          "400": {
+            "description": "Dados inválidos — Problem Details com detail e errors por campo."
+          },
+          "401": {
+            "description": "Sessão ausente, expirada ou conta indisponível."
+          },
+          "403": {
+            "description": "Perfil, vínculo ou CSRF inválido."
+          },
+          "404": {
+            "description": "Recurso não encontrado."
+          },
+          "409": {
+            "description": "Conflito de estado, unicidade ou reserva."
+          },
+          "429": {
+            "description": "Bloqueio temporário de login."
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "property_id": {
+                    "type": "integer"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "phone": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "property_id",
+                  "name",
+                  "email",
+                  "phone",
+                  "message"
+                ]
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/contacts": {
+      "get": {
+        "summary": "Contatos e respostas por perfil",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Operação concluída; GET retorna o recurso ou coleção."
+          },
+          "400": {
+            "description": "Dados inválidos — Problem Details com detail e errors por campo."
+          },
+          "401": {
+            "description": "Sessão ausente, expirada ou conta indisponível."
+          },
+          "403": {
+            "description": "Perfil, vínculo ou CSRF inválido."
+          },
+          "404": {
+            "description": "Recurso não encontrado."
+          },
+          "409": {
+            "description": "Conflito de estado, unicidade ou reserva."
+          },
+          "429": {
+            "description": "Bloqueio temporário de login."
+          }
+        }
+      }
+    },
+    "/contacts/{id}/replies": {
+      "post": {
+        "summary": "Resposta do corretor via outbox",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação concluída; GET retorna o recurso ou coleção."
+          },
+          "400": {
+            "description": "Dados inválidos — Problem Details com detail e errors por campo."
+          },
+          "401": {
+            "description": "Sessão ausente, expirada ou conta indisponível."
+          },
+          "403": {
+            "description": "Perfil, vínculo ou CSRF inválido."
+          },
+          "404": {
+            "description": "Recurso não encontrado."
+          },
+          "409": {
+            "description": "Conflito de estado, unicidade ou reserva."
+          },
+          "429": {
+            "description": "Bloqueio temporário de login."
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notifications": {
+      "get": {
+        "summary": "Últimas 100 notificações próprias",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Operação concluída; GET retorna o recurso ou coleção."
+          },
+          "400": {
+            "description": "Dados inválidos — Problem Details com detail e errors por campo."
+          },
+          "401": {
+            "description": "Sessão ausente, expirada ou conta indisponível."
+          },
+          "403": {
+            "description": "Perfil, vínculo ou CSRF inválido."
+          },
+          "404": {
+            "description": "Recurso não encontrado."
+          },
+          "409": {
+            "description": "Conflito de estado, unicidade ou reserva."
+          },
+          "429": {
+            "description": "Bloqueio temporário de login."
+          }
+        }
+      }
+    },
+    "/notifications/{id}/read": {
+      "patch": {
+        "summary": "Marcar notificação própria como lida",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação concluída; GET retorna o recurso ou coleção."
+          },
+          "400": {
+            "description": "Dados inválidos — Problem Details com detail e errors por campo."
+          },
+          "401": {
+            "description": "Sessão ausente, expirada ou conta indisponível."
+          },
+          "403": {
+            "description": "Perfil, vínculo ou CSRF inválido."
+          },
+          "404": {
+            "description": "Recurso não encontrado."
+          },
+          "409": {
+            "description": "Conflito de estado, unicidade ou reserva."
+          },
+          "429": {
+            "description": "Bloqueio temporário de login."
+          }
+        }
+      }
+    },
+    "/dashboard": {
+      "get": {
+        "summary": "Indicadores operacionais por perfil",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Operação concluída; GET retorna o recurso ou coleção."
+          },
+          "400": {
+            "description": "Dados inválidos — Problem Details com detail e errors por campo."
+          },
+          "401": {
+            "description": "Sessão ausente, expirada ou conta indisponível."
+          },
+          "403": {
+            "description": "Perfil, vínculo ou CSRF inválido."
+          },
+          "404": {
+            "description": "Recurso não encontrado."
+          },
+          "409": {
+            "description": "Conflito de estado, unicidade ou reserva."
+          },
+          "429": {
+            "description": "Bloqueio temporário de login."
+          }
+        }
+      }
+    },
+    "/admin/audit": {
+      "get": {
+        "summary": "Últimos 200 registros de auditoria",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Operação concluída; GET retorna o recurso ou coleção."
+          },
+          "400": {
+            "description": "Dados inválidos — Problem Details com detail e errors por campo."
+          },
+          "401": {
+            "description": "Sessão ausente, expirada ou conta indisponível."
+          },
+          "403": {
+            "description": "Perfil, vínculo ou CSRF inválido."
+          },
+          "404": {
+            "description": "Recurso não encontrado."
+          },
+          "409": {
+            "description": "Conflito de estado, unicidade ou reserva."
+          },
+          "429": {
+            "description": "Bloqueio temporário de login."
+          }
+        }
+      }
+    },
+    "/admin/mail": {
+      "get": {
+        "summary": "Últimos 100 envios sem conteúdo sensível",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Operação concluída; GET retorna o recurso ou coleção."
+          },
+          "400": {
+            "description": "Dados inválidos — Problem Details com detail e errors por campo."
+          },
+          "401": {
+            "description": "Sessão ausente, expirada ou conta indisponível."
+          },
+          "403": {
+            "description": "Perfil, vínculo ou CSRF inválido."
+          },
+          "404": {
+            "description": "Recurso não encontrado."
+          },
+          "409": {
+            "description": "Conflito de estado, unicidade ou reserva."
+          },
+          "429": {
+            "description": "Bloqueio temporário de login."
+          }
+        }
+      }
+    },
+    "/admin/mail/{id}/retry": {
+      "post": {
+        "summary": "Reenviar falha SMTP após revisão",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação concluída; GET retorna o recurso ou coleção."
+          },
+          "400": {
+            "description": "Dados inválidos — Problem Details com detail e errors por campo."
+          },
+          "401": {
+            "description": "Sessão ausente, expirada ou conta indisponível."
+          },
+          "403": {
+            "description": "Perfil, vínculo ou CSRF inválido."
+          },
+          "404": {
+            "description": "Recurso não encontrado."
+          },
+          "409": {
+            "description": "Conflito de estado, unicidade ou reserva."
+          },
+          "429": {
+            "description": "Bloqueio temporário de login."
+          }
+        }
+      }
+    },
+    "/openapi": {
+      "get": {
+        "summary": "Este contrato",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Operação concluída; GET retorna o recurso ou coleção."
+          },
+          "400": {
+            "description": "Dados inválidos — Problem Details com detail e errors por campo."
+          },
+          "401": {
+            "description": "Sessão ausente, expirada ou conta indisponível."
+          },
+          "403": {
+            "description": "Perfil, vínculo ou CSRF inválido."
+          },
+          "404": {
+            "description": "Recurso não encontrado."
+          },
+          "409": {
+            "description": "Conflito de estado, unicidade ou reserva."
+          },
+          "429": {
+            "description": "Bloqueio temporário de login."
+          }
+        },
+        "security": []
+      }
+    },
+    "/public/legal/{kind}": {
+      "get": {
+        "summary": "Documento versionado (terms ou privacy), texto UTF-8 e hash SHA-256",
+        "responses": {
+          "200": {
+            "description": "Operação concluída"
+          },
+          "400": {
+            "description": "Entrada inválida"
+          },
+          "401": {
+            "description": "Autenticação necessária"
+          },
+          "403": {
+            "description": "CSRF ou permissão"
+          },
+          "429": {
+            "description": "Limite de tentativas"
+          }
+        }
+      }
+    },
+    "/privacy/accept": {
+      "post": {
+        "summary": "Aceite autenticado: {version, accepted:true}",
+        "responses": {
+          "200": {
+            "description": "Operação concluída"
+          },
+          "400": {
+            "description": "Entrada inválida"
+          },
+          "401": {
+            "description": "Autenticação necessária"
+          },
+          "403": {
+            "description": "CSRF ou permissão"
+          },
+          "429": {
+            "description": "Limite de tentativas"
+          }
+        }
+      }
+    },
+    "/privacy/marketing": {
+      "put": {
+        "summary": "Preferência autenticada: {allowed:boolean}",
+        "responses": {
+          "200": {
+            "description": "Operação concluída"
+          },
+          "400": {
+            "description": "Entrada inválida"
+          },
+          "401": {
+            "description": "Autenticação necessária"
+          },
+          "403": {
+            "description": "CSRF ou permissão"
+          },
+          "429": {
+            "description": "Limite de tentativas"
+          }
+        }
+      }
+    },
+    "/privacy/data": {
+      "get": {
+        "summary": "Cópia dos dados próprios sem segredos ou dados de terceiros",
+        "responses": {
+          "200": {
+            "description": "Operação concluída"
+          },
+          "400": {
+            "description": "Entrada inválida"
+          },
+          "401": {
+            "description": "Autenticação necessária"
+          },
+          "403": {
+            "description": "CSRF ou permissão"
+          },
+          "429": {
+            "description": "Limite de tentativas"
+          }
+        }
+      }
+    },
+    "/privacy/requests": {
+      "post": {
+        "summary": "Pedido autenticado: {kind:ACCESS|DELETE}",
+        "responses": {
+          "200": {
+            "description": "Operação concluída"
+          },
+          "400": {
+            "description": "Entrada inválida"
+          },
+          "401": {
+            "description": "Autenticação necessária"
+          },
+          "403": {
+            "description": "CSRF ou permissão"
+          },
+          "429": {
+            "description": "Limite de tentativas"
+          }
+        }
+      }
+    },
+    "/public/privacy/verify": {
+      "post": {
+        "summary": "Verificação sem conta: {email}; resposta neutra e link de uma hora",
+        "responses": {
+          "200": {
+            "description": "Operação concluída"
+          },
+          "400": {
+            "description": "Entrada inválida"
+          },
+          "401": {
+            "description": "Autenticação necessária"
+          },
+          "403": {
+            "description": "CSRF ou permissão"
+          },
+          "429": {
+            "description": "Limite de tentativas"
+          }
+        }
+      }
+    },
+    "/public/privacy/data": {
+      "post": {
+        "summary": "Cópia por e-mail verificado: {token}",
+        "responses": {
+          "200": {
+            "description": "Operação concluída"
+          },
+          "400": {
+            "description": "Entrada inválida"
+          },
+          "401": {
+            "description": "Autenticação necessária"
+          },
+          "403": {
+            "description": "CSRF ou permissão"
+          },
+          "429": {
+            "description": "Limite de tentativas"
+          }
+        }
+      }
+    },
+    "/public/privacy/requests": {
+      "post": {
+        "summary": "Pedido por e-mail verificado: {token,kind:ACCESS|DELETE}",
+        "responses": {
+          "200": {
+            "description": "Operação concluída"
+          },
+          "400": {
+            "description": "Entrada inválida"
+          },
+          "401": {
+            "description": "Autenticação necessária"
+          },
+          "403": {
+            "description": "CSRF ou permissão"
+          },
+          "429": {
+            "description": "Limite de tentativas"
+          }
+        }
+      }
+    },
+    "/public/privacy/unsubscribe": {
+      "post": {
+        "summary": "Revogação sem login: {token}; GET nunca revoga",
+        "responses": {
+          "200": {
+            "description": "Operação concluída"
+          },
+          "400": {
+            "description": "Entrada inválida"
+          },
+          "401": {
+            "description": "Autenticação necessária"
+          },
+          "403": {
+            "description": "CSRF ou permissão"
+          },
+          "429": {
+            "description": "Limite de tentativas"
+          }
+        }
+      }
+    },
+    "/admin/properties/{id}/entry": {
+      "put": {
+        "summary": "Regra documentada: {reason,recipient,until}; until:null remove",
+        "responses": {
+          "200": {
+            "description": "Operação concluída"
+          },
+          "400": {
+            "description": "Entrada inválida"
+          },
+          "401": {
+            "description": "Autenticação necessária"
+          },
+          "403": {
+            "description": "CSRF ou permissão"
+          },
+          "429": {
+            "description": "Limite de tentativas"
+          }
+        }
+      }
+    },
+    "/visits/{id}/identity": {
+      "get": {
+        "summary": "CPF ainda não expirado, somente administrador ou corretor atribuído",
+        "responses": {
+          "200": {
+            "description": "Operação concluída"
+          },
+          "400": {
+            "description": "Entrada inválida"
+          },
+          "401": {
+            "description": "Autenticação necessária"
+          },
+          "403": {
+            "description": "CSRF ou permissão"
+          },
+          "429": {
+            "description": "Limite de tentativas"
+          }
+        }
+      }
+    },
+    "/admin/privacy/requests": {
+      "get": {
+        "summary": "Fila administrativa de protocolos pendentes",
+        "responses": {
+          "200": {
+            "description": "Operação concluída"
+          },
+          "400": {
+            "description": "Entrada inválida"
+          },
+          "401": {
+            "description": "Autenticação necessária"
+          },
+          "403": {
+            "description": "CSRF ou permissão"
+          },
+          "429": {
+            "description": "Limite de tentativas"
+          }
+        }
+      }
+    },
+    "/admin/privacy/requests/{id}/answer": {
+      "post": {
+        "summary": "Resposta fundamentada: {response}; exclusão impedida enquanto houver vínculo",
+        "responses": {
+          "200": {
+            "description": "Operação concluída"
+          },
+          "400": {
+            "description": "Entrada inválida"
+          },
+          "401": {
+            "description": "Autenticação necessária"
+          },
+          "403": {
+            "description": "CSRF ou permissão"
+          },
+          "429": {
+            "description": "Limite de tentativas"
+          }
+        }
+      }
+    },
+    "/admin/privacy/retention": {
+      "get": {
+        "summary": "Relatório de impacto e estado da rotina",
+        "responses": {
+          "200": {
+            "description": "Operação concluída"
+          },
+          "400": {
+            "description": "Entrada inválida"
+          },
+          "401": {
+            "description": "Autenticação necessária"
+          },
+          "403": {
+            "description": "CSRF ou permissão"
+          },
+          "429": {
+            "description": "Limite de tentativas"
+          }
+        }
+      }
+    },
+    "/admin/privacy/retention/run": {
+      "post": {
+        "summary": "Executa limpeza somente se habilitada no ambiente",
+        "responses": {
+          "200": {
+            "description": "Operação concluída"
+          },
+          "400": {
+            "description": "Entrada inválida"
+          },
+          "401": {
+            "description": "Autenticação necessária"
+          },
+          "403": {
+            "description": "CSRF ou permissão"
+          },
+          "429": {
+            "description": "Limite de tentativas"
+          }
+        }
+      }
+    },
+    "/admin/privacy/incidents": {
+      "get": {
+        "summary": "Incidentes, prazo e protocolos",
+        "responses": {
+          "200": {
+            "description": "Operação concluída"
+          },
+          "400": {
+            "description": "Entrada inválida"
+          },
+          "401": {
+            "description": "Autenticação necessária"
+          },
+          "403": {
+            "description": "CSRF ou permissão"
+          },
+          "429": {
+            "description": "Limite de tentativas"
+          }
+        }
+      },
+      "post": {
+        "summary": "Registrar {known_at,description,risk,owner,containment,reportable}; prazo administrativo de três dias úteis",
+        "responses": {
+          "200": {
+            "description": "ID do incidente e aviso ao responsável"
+          }
+        }
+      }
+    },
+    "/admin/privacy/incidents/{id}/notice": {
+      "put": {
+        "summary": "Registro das comunicações: {anpd_protocol,holders_notice}",
+        "responses": {
+          "200": {
+            "description": "Operação concluída"
+          },
+          "400": {
+            "description": "Entrada inválida"
+          },
+          "401": {
+            "description": "Autenticação necessária"
+          },
+          "403": {
+            "description": "CSRF ou permissão"
+          },
+          "429": {
+            "description": "Limite de tentativas"
+          }
+        }
+      }
+    },
+    "/admin/privacy/holidays/{day}": {
+      "put": {
+        "summary": "Feriado administrativo ISO: {response:nome}",
+        "responses": {
+          "200": {
+            "description": "Operação concluída"
+          },
+          "400": {
+            "description": "Entrada inválida"
+          },
+          "401": {
+            "description": "Autenticação necessária"
+          },
+          "403": {
+            "description": "CSRF ou permissão"
+          },
+          "429": {
+            "description": "Limite de tentativas"
+          }
+        }
+      }
+    },
+    "/public/legal/{kind}/{version}": {
+      "get": {
+        "summary": "Documento imutável por versão, texto e hash",
+        "responses": {
+          "200": {
+            "description": "Documento"
+          },
+          "404": {
+            "description": "Versão inexistente"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "session": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "SESSION"
+      }
+    },
+    "schemas": {
+      "Registration": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "cpf": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "phone": {
+            "type": "string",
+            "maxLength": 30
+          },
+          "address": {
+            "type": "string",
+            "maxLength": 500
+          },
+          "password": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 72
+          },
+          "terms_accepted": {
+            "type": "boolean",
+            "const": true
+          },
+          "terms_version": {
+            "type": "string",
+            "const": "2026-11-16"
+          },
+          "marketing": {
+            "type": "boolean",
+            "default": false
+          }
+        },
+        "required": [
+          "name",
+          "email",
+          "password",
+          "terms_accepted",
+          "terms_version"
+        ]
+      },
+      "PropertyInput": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "HOUSE",
+              "APARTMENT",
+              "PENTHOUSE",
+              "LAND",
+              "COMMERCIAL",
+              "WAREHOUSE"
+            ]
+          },
+          "purpose": {
+            "type": "string",
+            "enum": [
+              "SALE",
+              "RENT",
+              "BOTH"
+            ]
+          },
+          "description": {
+            "type": "string"
+          },
+          "cep": {
+            "type": "string"
+          },
+          "street": {
+            "type": "string"
+          },
+          "number": {
+            "type": "string"
+          },
+          "neighborhood": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "sale_price": {
+            "type": "string"
+          },
+          "rent_price": {
+            "type": "string"
+          },
+          "area": {
+            "type": "string"
+          },
+          "bedrooms": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "bathrooms": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "parking": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "owner_id": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "broker_id": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "title",
+          "type",
+          "purpose",
+          "description",
+          "cep",
+          "street",
+          "number",
+          "neighborhood",
+          "city",
+          "state",
+          "area",
+          "bedrooms",
+          "bathrooms",
+          "parking",
+          "owner_id",
+          "broker_id"
+        ]
+      }
+    }
+  }
+}
