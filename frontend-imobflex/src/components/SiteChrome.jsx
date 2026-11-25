@@ -1,26 +1,35 @@
 import { CookieSettingsButton } from "./CookiePreferences";
 import Link from "next/link";
 import MobileMenu from "./MobileMenu";
+import ThemeToggle from "./ThemeToggle";
+import BackButton from "./BackButton";
 import { House } from "lucide-react";
-export function Header() {
+export function Header({ theme = "light" }) {
   return (
     <header className="topbar">
       <div className="container header-inner">
-        <Link href="/" className="brand" aria-label="Imobflex, início">
-          <House size={36} strokeWidth={1.4} className="text-crimson" />
-          <span className="brand-name">
-            Imobflex<small>Uma nova história começa aqui</small>
-          </span>
-        </Link>
+        <div className="header-start">
+          <BackButton />
+          <Link href="/" className="brand" aria-label="Imobflex, início">
+            <House size={36} strokeWidth={1.4} className="text-crimson" />
+            <span className="brand-name">
+              Imobflex<small>Uma nova história começa aqui</small>
+            </span>
+          </Link>
+        </div>
         <nav className="nav" aria-label="Navegação principal">
           <Link href="/imoveis?purpose=SALE">Comprar</Link>
           <Link href="/imoveis?purpose=RENT">Alugar</Link>
-          <Link href="/sobre">A imobiliária</Link>
+          <Link href="/sobre">Sobre nós</Link>
+          <Link href="/contato">Contato</Link>
           <Link className="btn secondary small" href="/painel">
             Minha conta
           </Link>
         </nav>
-        <MobileMenu />
+        <div className="header-tools">
+          <ThemeToggle initialTheme={theme} />
+          <MobileMenu />
+        </div>
       </div>
     </header>
   );
@@ -44,7 +53,8 @@ export function Footer() {
           </div>
           <div>
             <h3>Atendimento</h3>
-            <Link href="/sobre">Sobre a imobiliária</Link>
+            <Link href="/sobre">Sobre nós</Link>
+            <Link href="/contato">Contato</Link>
             <Link href="/painel/visitas">Minhas visitas</Link>
             <Link href="/privacidade">Política de Privacidade</Link>
             <Link href="/termos">Termos de Uso</Link>

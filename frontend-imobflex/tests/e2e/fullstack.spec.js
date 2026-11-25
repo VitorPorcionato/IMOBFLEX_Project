@@ -25,8 +25,9 @@ test("administrator publishes, client confirms email and books, broker confirms"
   await page
     .getByRole("button", { name: "Recusar opcionais", exact: true })
     .click();
-  async function login(email, password) {
+  async function login(email, password, profile = "Cliente") {
     await page.goto("/login");
+    await page.getByRole("radio", { name: profile, exact: true }).check();
     await page.getByLabel("E-mail", { exact: true }).fill(email);
     await page.getByLabel("Senha", { exact: true }).fill(password);
     await page.getByRole("button", { name: "Entrar", exact: true }).click();
@@ -43,6 +44,7 @@ test("administrator publishes, client confirms email and books, broker confirms"
   await login(
     process.env.E2E_ADMIN_EMAIL || "admin@example.test",
     process.env.E2E_ADMIN_PASSWORD || "AdminPilot2026!",
+    "Admin",
   );
   await page.goto("/painel/imoveis/novo");
   await page.getByLabel("Título do anúncio").fill(title);
@@ -159,6 +161,7 @@ test("administrator publishes, client confirms email and books, broker confirms"
   await login(
     "corretor@example.test",
     process.env.E2E_DEMO_PASSWORD || "DemoPilot2026!",
+    "Corretor",
   );
   await page.goto("/painel/visitas");
   const row = page.getByRole("row").filter({ hasText: title });

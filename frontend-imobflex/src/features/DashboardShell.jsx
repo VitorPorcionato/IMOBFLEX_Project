@@ -29,6 +29,7 @@ export default function DashboardShell({ children }) {
     );
   const staff = ["ADMIN", "BROKER"].includes(user.role);
   const links = [
+    ...(!staff ? [["/painel", "Minha área"]] : []),
     ...(staff
       ? [
           ["/painel", "Visão geral"],
@@ -59,7 +60,7 @@ export default function DashboardShell({ children }) {
           <div>
             <h1 className="dashboard-title">Olá, {user.name.split(" ")[0]}</h1>
             <p className="muted">
-              Acompanhe seus imóveis, conversas e próximos encontros.
+              {user.role === "ADMIN" ? "Área administrativa: imóveis, equipe e privacidade." : staff ? "Área do corretor: seus imóveis, visitas e atendimentos." : "Área do cliente: suas visitas, conversas e notificações."}
             </p>
           </div>
           <button
@@ -80,12 +81,18 @@ export default function DashboardShell({ children }) {
                 key={href}
                 href={href}
                 className={path === href ? "active" : ""}
+                aria-current={path === href ? "page" : undefined}
               >
                 {label}
               </Link>
             ))}
           </nav>
-          <section className="min-w-0">{children}</section>
+          <section className="min-w-0">{
+            ((!staff && ["/painel/imoveis", "/painel/agenda"].some(p => path.startsWith(p))) ||
+              (user.role !== "ADMIN" && ["/painel/usuarios", "/painel/auditoria", "/painel/emails", "/painel/privacidade"].some(p => path.startsWith(p))))
+              ? <div className="empty"><h2>Acesso restrito</h2><p>Esta página não está disponível para o seu perfil.</p><Link href="/painel" className="btn">Voltar à minha área</Link></div>
+              : children
+          }</section>
         </div>
       </div>
     </UserContext>

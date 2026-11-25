@@ -1,5 +1,15 @@
 import Link from "next/link";
-import { Search, CalendarDays, MessagesSquare } from "lucide-react";
+import {
+  Search,
+  CalendarDays,
+  MessagesSquare,
+  House,
+  Building2,
+  Trees,
+  BriefcaseBusiness,
+  MapPin,
+  ArrowUpRight,
+} from "lucide-react";
 import { publicApi } from "@/lib/api";
 import PropertyCard from "@/components/PropertyCard";
 export const dynamic = "force-dynamic";
@@ -21,12 +31,27 @@ export default async function Home() {
             Sua nova história.
           </h1>
           <p>
-            Um lar para os seus dias. Um espaço para seus planos. Encontre o
-            imóvel certo com a Imobflex.
+            Da vida na capital ao ritmo do interior. Descubra casas,
+            apartamentos e espaços para trabalhar em São Paulo.
           </p>
-          <Link href="/imoveis" className="btn">
-            Explorar imóveis
-          </Link>
+          <div className="hero-actions">
+            <Link href="/imoveis" className="btn">
+              Explorar imóveis
+              <ArrowUpRight size={20} aria-hidden="true" />
+            </Link>
+            <Link href="/imoveis?purpose=RENT" className="hero-link">
+              Quero alugar
+            </Link>
+          </div>
+          <div className="hero-notes">
+            <span>
+              <MapPin size={17} aria-hidden="true" /> Capital, ABC, litoral e
+              interior
+            </span>
+            <span>
+              <CalendarDays size={17} aria-hidden="true" /> Visitas pelo site
+            </span>
+          </div>
         </div>
         <div className="hero-photo">
           <img
@@ -35,7 +60,7 @@ export default async function Home() {
             fetchPriority="high"
           />
           <div className="photo-caption">
-            Espaços para viver bem.
+            Abra espaço para o que vem.
             <br />
             <small>Imagem ilustrativa</small>
           </div>
@@ -64,12 +89,46 @@ export default async function Home() {
           </button>
         </form>
       </div>
-      <section className="container section">
+      <section
+        className="container property-paths"
+        aria-label="Buscar por tipo de imóvel"
+      >
+        {[
+          [House, "Casas", "HOUSE", "Mais espaço para viver"],
+          [
+            Building2,
+            "Apartamentos",
+            "APARTMENT",
+            "Sua rotina, bem localizada",
+          ],
+          [Trees, "Terrenos", "LAND", "Um novo projeto começa aqui"],
+          [
+            BriefcaseBusiness,
+            "Comerciais",
+            "COMMERCIAL",
+            "Lugar para suas ideias",
+          ],
+        ].map(([Icon, title, type, text]) => (
+          <Link
+            key={type}
+            href={`/imoveis?type=${type}`}
+            className="property-path"
+          >
+            <Icon size={26} strokeWidth={1.5} aria-hidden="true" />
+            <span>
+              <strong>{title}</strong>
+              <small>{text}</small>
+            </span>
+            <ArrowUpRight size={18} aria-hidden="true" />
+          </Link>
+        ))}
+      </section>
+      <section className="container section featured-section">
         <div className="section-heading">
           <div>
-            <h2>Conheça as possibilidades</h2>
+            <h2>Encontre seu jeito de morar</h2>
             <p className="muted">
-              Os imóveis mais recentes para o seu próximo passo.
+              Explore os novos espaços do nosso catálogo de demonstração.
             </p>
           </div>
           <Link href="/imoveis" className="btn secondary">
@@ -100,7 +159,57 @@ export default async function Home() {
           )}
         </div>
       </section>
-      <section className="bg-gray-100">
+      <section className="regions-section">
+        <div className="container section">
+          <div className="section-heading">
+            <div>
+              <h2>Um novo endereço, muitas possibilidades</h2>
+              <p className="muted">
+                Escolha uma região e conheça os imóveis disponíveis.
+              </p>
+            </div>
+          </div>
+          <div className="regions-grid">
+            {[
+              [
+                "São Paulo",
+                "Da Vila Mariana a Pinheiros",
+                "/regions-capital.jpg",
+              ],
+              ["Santo André", "Descubra os espaços do ABC", "/regions-abc.jpg"],
+              ["Campinas", "Novos planos no interior", "/regions-interior.jpg"],
+            ].map(([city, text, photo]) => (
+              <Link
+                className="region-card"
+                key={city}
+                href={`/imoveis?q=${encodeURIComponent(city)}`}
+              >
+                <img
+                  src={photo}
+                  alt=""
+                  loading="lazy"
+                  width="800"
+                  height="600"
+                />
+                <div>
+                  <MapPin size={20} aria-hidden="true" />
+                  <h3>{city}</h3>
+                  <p>{text}</p>
+                  <span>
+                    Explorar região{" "}
+                    <ArrowUpRight size={18} aria-hidden="true" />
+                  </span>
+                </div>
+              </Link>
+            ))}
+          </div>
+          <p className="region-note muted">
+            Fotografias ilustrativas. Os anúncios são fictícios e utilizam
+            localidades reais para demonstrar a experiência.
+          </p>
+        </div>
+      </section>
+      <section className="journey-section">
         <div className="container section journey">
           <div className="gold-rule" />
           <h2>
@@ -134,6 +243,20 @@ export default async function Home() {
               </p>
             </div>
           </div>
+        </div>
+      </section>
+      <section className="container section">
+        <div className="home-contact">
+          <div>
+            <h2>Qual é o seu próximo passo?</h2>
+            <p>
+              Escolha um imóvel, conheça os detalhes e envie suas dúvidas à
+              equipe. Sua busca pode começar por uma boa conversa.
+            </p>
+          </div>
+          <Link href="/imoveis" className="btn">
+            Encontrar meu espaço <ArrowUpRight size={20} aria-hidden="true" />
+          </Link>
         </div>
       </section>
     </>

@@ -5,3 +5,5 @@ mvnw text eol=lf
 *.sql text eol=lf
 *.png binary
 *.jpg binary
+# The last TSV column is intentionally empty for new demo listings.
+backend-imobflex/src/main/resources/demo/curated/properties.tsv whitespace=-blank-at-eol

@@ -52,6 +52,29 @@ class IntegrationTest {
   static long admin, broker, owner, client, other, property;
   static Instant slot;
 
+  @Test
+  @Order(19)
+  void selectedLoginProfileCannotGrantPrivileges() throws Exception {
+    String suffix = Long.toString(System.nanoTime());
+    for (String role : List.of("CLIENT", "BROKER", "ADMIN")) {
+      String email = role.toLowerCase() + suffix + "@example.test";
+      user(email, null, role);
+      var browser = new Browser();
+      String wrongRole = role.equals("ADMIN") ? "BROKER" : "ADMIN";
+      assertEquals(403, browser.call("POST", "/auth/login", Map.of("email", email,
+          "password", "PilotSecure25", "role", wrongRole)).statusCode());
+      assertEquals(401, browser.call("GET", "/me", null).statusCode());
+      assertEquals(200, browser.call("POST", "/auth/login", Map.of("email", email,
+          "password", "PilotSecure25", "role", role)).statusCode());
+      assertEquals(role.equals("ADMIN") ? 200 : 403,
+          browser.call("GET", "/admin/privacy/requests", null).statusCode());
+      assertEquals(role.equals("CLIENT") ? 403 : 200,
+          browser.call("GET", "/dashboard", null).statusCode());
+      assertEquals(200, browser.call("GET", "/visits", null).statusCode());
+      assertEquals(200, browser.call("GET", "/notifications", null).statusCode());
+    }
+  }
+
   class Browser {
     HttpClient http =
         HttpClient.newBuilder()
@@ -544,6 +567,33 @@ class IntegrationTest {
 
   @Autowired ImageStorage imageStorage;
   @Autowired org.springframework.transaction.PlatformTransactionManager transactionManager;
+
+  @Test
+  @Order(20)
+  void curatedDemoAddsTwelveOnceAndPreservesEditedProperties() throws Exception {
+    var protectedRow = db.one("SELECT id FROM properties WHERE title=?", "Casa térrea com quintal no Jardim São Caetano");
+    long protectedId = Db.id(protectedRow, "id");
+    db.update("UPDATE properties SET description=? WHERE id=?", "Descrição personalizada pelo usuário; deve ser preservada.", protectedId);
+    long before = db.count("SELECT COUNT(*) FROM properties");
+    long maxId = ((Number) db.one("SELECT MAX(id) AS id FROM properties").get("id")).longValue();
+    var seeder = new CuratedDemoSeeder(db, imageStorage);
+    var transaction = new org.springframework.transaction.support.TransactionTemplate(transactionManager);
+    for (int run = 0; run < 2; run++) transaction.executeWithoutResult(status -> {
+      try { seeder.run(null); } catch (Exception e) { throw new RuntimeException(e); }
+    });
+    assertEquals(before + 12, db.count("SELECT COUNT(*) FROM properties"));
+    assertEquals(1, db.count("SELECT COUNT(*) FROM audit WHERE action='DEMO_CURATED_SP_25'"));
+    assertEquals("Descrição personalizada pelo usuário; deve ser preservada.", db.one("SELECT description FROM properties WHERE id=?", protectedId).get("description"));
+    assertEquals(36, db.count("SELECT COUNT(*) FROM property_images WHERE property_id>?", maxId));
+    var hashes = new HashSet<String>();
+    for (var row : db.list("SELECT path FROM property_images WHERE property_id>? AND position=0", maxId)) {
+      hashes.add(AuthService.hash(Base64.getEncoder().encodeToString(imageStorage.read(row.get("path").toString()))));
+    }
+    assertEquals(12, hashes.size());
+    var location = db.one("SELECT neighborhood,city FROM properties WHERE title=?", "Apartamento com varanda em Pinheiros");
+    assertEquals("Pinheiros", location.get("neighborhood"));
+    assertEquals("São Paulo", location.get("city"));
+  }
 
   @Test
   @Order(14)

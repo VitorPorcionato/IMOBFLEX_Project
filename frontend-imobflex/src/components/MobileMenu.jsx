@@ -53,7 +53,8 @@ export default function MobileMenu() {
       >
         <Link href="/imoveis?purpose=SALE">Comprar</Link>
         <Link href="/imoveis?purpose=RENT">Alugar</Link>
-        <Link href="/sobre">A imobiliária</Link>
+        <Link href="/sobre">Sobre nós</Link>
+        <Link href="/contato">Contato</Link>
         <Link href="/painel" className="btn secondary">
           Minha conta
         </Link>

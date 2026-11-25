@@ -74,7 +74,7 @@ test("brand, menu, WhatsApp and layout across breakpoint boundaries", async ({
       await toggle.click();
       await page
         .getByRole("navigation", { name: "Navegação móvel" })
-        .getByRole("link", { name: "A imobiliária" })
+        .getByRole("link", { name: "Sobre nós" })
         .click();
       await expect(page).toHaveURL(/sobre/);
       await expect(

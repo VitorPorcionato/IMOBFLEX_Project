@@ -14,3 +14,6 @@ backups/
 .vscode/
 .DS_Store
 .mvn/wrapper/maven-wrapper.jar
+
+# Relatórios e perfis temporários do verificador visual
+.taste-skill/

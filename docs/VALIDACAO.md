@@ -1,5 +1,15 @@
 # Validação do MVP
 
+## Acesso por perfil — 25/11/2026
+
+O login oferece Cliente, Corretor e Admin. O perfil selecionado é conferido no backend depois da validação das credenciais e antes da criação da sessão. A suíte de integração verifica os três perfis, recusa divergência com 403 sem autenticar e confere as restrições dos indicadores e dos pedidos administrativos de privacidade. APIs de visitas e notificações continuam limitadas ao usuário ou à equipe responsável.
+
+O cliente passa a entrar em `/painel`, com próximas visitas, notificações não lidas e atalhos para histórico, mensagens e privacidade. O menu distingue responsabilidades e bloqueia páginas de outros perfis também na interface. O administrador solicitado foi provisionado somente na base local, com BCrypt; suas credenciais não integram código, seeds ou este relatório. O aceite dos termos precisa ser feito pelo próprio titular.
+
+Verificação desta alteração: 22 testes Java aprovados em MySQL 8.4 dedicado, quatro testes Vitest aprovados, lint e build Next.js aprovados, empacotamento Spring Boot aprovado. Chromium: 12 testes aprovados; o teste completo que depende de `FULL_STACK` ficou desabilitado nesta rodada. Os quatro novos testes de interface cobrem entradas por perfil, dados do cliente, menus e seleção por teclado em 320 px. Foi acrescentada a página de login ao teste axe-core existente.
+
+O login real do administrador e a navegação nos indicadores, imóveis, formulário, usuários e privacidade foram conferidos sem alterar anúncios ou aceitar termos em nome do titular. Revisão visual em 320 e 1280 px; axe-core nessas larguras não detectou violações nas regras examinadas no login e na visão do cliente com dados simulados. Isso não certifica acessibilidade integral. Frontend, API e MySQL permanecem em execução local.
+
 Registro de execução local em 13/10/2026. Os resultados abaixo descrevem a implementação, não uma implantação em produção.
 
 ## Verificações executadas
@@ -63,3 +73,73 @@ O Mailpit do Compose permanece configurado. O executável Windows foi bloqueado 
 Procedimentos, limites e responsabilidades: [PRIVACIDADE.md](PRIVACIDADE.md). Antes de produção faltam dados do controlador, canal monitorado e revisão dos tratamentos pela imobiliária. Comunicação real à ANPD e gestão de backups continuam sendo ações operacionais do responsável, com registros e prazos no sistema.
 
 Resultado final desta atualização: nove testes Chromium aprovados, incluindo fluxo completo e verificação axe-core. A desativação foi corrigida para invalidar a sessão após commit, evitando bloqueio entre a transação de negócio e Spring Session; teste de regressão aprovado. Desativação revoga marketing e inicia prazo de conservação do aceite. Contas desativadas também entram na revisão por inatividade. Relatório da limpeza local: `privacy-retention-validation.json`.
+
+## Home, tema e catálogo — 25/11/2026
+
+Frontend: lint, quatro testes Vitest e build de produção aprovados. Home com
+busca, atalhos de tipos e cidades, cards com movimento por interação e tema
+claro/escuro persistido. Layout verificado de 320 a 1440 px, incluindo os limites
+640/641 e 1024/1025 px. Filtros móveis recolhíveis, navegação por teclado, menu,
+carregamento de imagens e ausência de overflow aprovados.
+
+Playwright: nove cenários distintos aprovados no Chromium (públicos,
+responsivos e atualização visual), seis no Firefox e seis no WebKit (responsivos
+e atualização visual). Incluem persistência do tema após navegar e recarregar,
+preferência por movimento reduzido, atalhos de cidades e abertura dos filtros
+móveis. A sincronização do teste de recarga foi ajustada para aguardar a chegada
+ao catálogo antes de recarregar; a nova execução passou nos três motores.
+
+Axe-core: home, catálogo, login e privacidade, em 320 e 1440 px e nos dois temas,
+sem violações das regras A/AA verificadas nos três motores. Revisão visual por
+capturas de desktop, tablet e celular complementou a automação; não é uma
+certificação integral de acessibilidade.
+
+Backend: 23 testes aprovados (20 de integração e três de regras), com MySQL
+8.4.9 em banco temporário separado, removido após a execução. Novo teste valida
+12 inserções únicas, três enquadramentos por anúncio, capas distintas e
+preservação de exemplos editados. Reinício local não duplicou registros.
+
+Base de demonstração: 13 exemplos iniciais atualizados e 12 adicionados, com
+logradouro/bairro/CEP consultados no ViaCEP e descrições ilustrativas. Dois
+registros antigos e inalterados de testes E2E foram inativados, sem exclusão do
+histórico e após verificar ausência de visitas futuras ativas. Verificação HTTP
+final: 25 anúncios públicos, 25 hashes de capas distintos, home HTTP 200 e saúde
+do backend UP. Não foram enviados e-mails externos nesta atualização.
+
+Direção visual e funcionamento do seed: [FRONTEND-VISUAL.md](FRONTEND-VISUAL.md).
+
+### Navegação de volta — 25/11/2026
+
+Seta global no canto superior esquerdo, com alvo de pelo menos 44 × 44 px,
+foco por teclado e cores dos temas claro/escuro. Build e lint aprovados.
+Três cenários por navegador verificados em Chromium, Firefox e WebKit:
+retorno entre home, catálogo e filtros após recarga; abertura direta com retorno
+seguro por teclado; visibilidade e ausência de overflow em 320, 390, 768, 1025 e
+1440 px. O navegador pode restaurar os campos digitados na página anterior;
+o teste verifica a URL anterior sem exigir que o navegador apague esses campos.
+
+### Assistente e páginas institucionais — 25/11/2026
+
+30 testes Java aprovados em MySQL separado: sete testes novos cobrem consentimento
+para IA, catálogo público, resposta simulada da Groq, indisponibilidade, dados
+pessoais, limites de perguntas e leitura limitada do JSON antes da aplicação.
+Nenhuma chamada real ao provedor foi feita com a chave enviada na conversa.
+Frontend: quatro testes Vitest, build e lint sem erros (três avisos em arquivos
+inalterados da camada de movimento da skill). Cinco cenários Chromium aprovados
+para chat, páginas institucionais, axe-core e responsividade. O fluxo de abrir,
+perguntar e fechar por teclado também passou em Firefox e WebKit. HTTP local:
+chat 200/LOCAL com CSRF e corpo excedido 413. A revisão visual não teve aprovação
+integral: GATE OPEN 26; detalhes, cinco dispensas e 19 avisos em DESIGN-REVIEW.md.
+Análise da referência e configuração: ANALISE-REFERENCIA-TALISMA.md.
+
+### Retorno à home e posição dos acionadores — 25/11/2026
+
+A seta foi substituída por link direto à home e fica ausente em `/`.
+O assistente fica na mesma linha do WhatsApp, à esquerda e com intervalo
+mínimo entre os acionadores. O painel abre acima deles, ancorado ao viewport.
+Esta regra substitui o retorno por histórico documentado anteriormente.
+
+Build aprovado; lint sem erros, com os três avisos já existentes em arquivos
+da skill. Seis cenários Chromium aprovados: retorno direto por clique e teclado,
+ausência de seta na home, alinhamento dos acionadores e painel sem overflow em
+320, 390, 768, 1025 e 1440 px, orientação do chat e acessibilidade automatizada.

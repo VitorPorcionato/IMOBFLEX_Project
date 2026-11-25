@@ -2,6 +2,7 @@ import Link from "next/link";
 import { publicApi } from "@/lib/api";
 import { labels } from "@/lib/format";
 import PropertyCard from "@/components/PropertyCard";
+import FilterPanel from "@/components/FilterPanel";
 export const metadata = { title: "Comprar ou alugar" };
 export const dynamic = "force-dynamic";
 export default async function Catalog({ searchParams }) {
@@ -31,8 +32,7 @@ export default async function Catalog({ searchParams }) {
       </div>
       <div className="catalog">
         <aside className="filters">
-          <details open className="mobile-filter">
-            <summary>Filtrar imóveis</summary>
+          <FilterPanel>
             <form action="/imoveis">
               <label>
                 Finalidade
@@ -107,7 +107,7 @@ export default async function Catalog({ searchParams }) {
                 Limpar filtros
               </Link>
             </form>
-          </details>
+          </FilterPanel>
         </aside>
         <section>
           <p className="muted" aria-live="polite">

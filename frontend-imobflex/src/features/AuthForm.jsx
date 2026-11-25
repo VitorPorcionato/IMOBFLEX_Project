@@ -12,6 +12,11 @@ const titles = {
   "confirmar-email": "Confirme seu e-mail",
   "redefinir-senha": "Escolha uma nova senha",
 };
+const loginRoles = {
+  CLIENT: { label: "Cliente", description: "Acompanhe suas visitas, notificações e conversas com a equipe." },
+  BROKER: { label: "Corretor", description: "Gerencie seus imóveis, disponibilidade, visitas e atendimentos atribuídos." },
+  ADMIN: { label: "Admin", description: "Administre imóveis, equipe, indicadores e solicitações de privacidade." },
+};
 export default function AuthForm({ mode }) {
   const router = useRouter(),
     params = useSearchParams();
@@ -20,8 +25,11 @@ export default function AuthForm({ mode }) {
     [success, setSuccess] = useState(""),
     [fields, setFields] = useState({});
   const [token, setToken] = useState("");
+  const [ready, setReady] = useState(false);
+  const [loginRole, setLoginRole] = useState("CLIENT");
   useEffect(() => {
     setToken(params.get("token") || "");
+    setReady(true);
   }, [params]);
   async function submit(e) {
     e.preventDefault();
@@ -37,13 +45,11 @@ export default function AuthForm({ mode }) {
     }
     try {
       if (mode === "login") {
-        const user = await api("/auth/login", { method: "POST", body: data });
+        await api("/auth/login", { method: "POST", body: data });
         router.push(
           params.get("next")
             ? safeNext(params.get("next"))
-            : user.role === "CLIENT"
-              ? "/imoveis"
-              : "/painel",
+            : "/painel",
         );
         router.refresh();
       } else if (mode === "cadastro") {
@@ -101,10 +107,25 @@ export default function AuthForm({ mode }) {
           {mode === "cadastro"
             ? "Acompanhe suas visitas e converse com a equipe. Use dados fictícios no piloto."
             : mode === "login"
-              ? "Entre para acompanhar seus próximos passos."
+              ? loginRoles[loginRole].description
               : "Conclua esta etapa para acessar sua conta."}
         </p>
         <form onSubmit={submit} className="stack">
+          {mode === "login" && (
+            <fieldset className="login-profiles" disabled={busy || !ready}>
+              <legend>Como você deseja entrar?</legend>
+              <div className="login-profile-options">
+                {Object.entries(loginRoles).map(([role, { label }]) => (
+                  <label key={role} className={loginRole === role ? "selected" : ""}>
+                    <input type="radio" name="role" value={role} checked={loginRole === role}
+                      onChange={() => { setLoginRole(role); setError(""); setSuccess(""); }} />
+                    <span>{label}</span>
+                  </label>
+                ))}
+              </div>
+              <p className="muted">Use o e-mail e a senha da sua conta. O acesso depende do perfil cadastrado.</p>
+            </fieldset>
+          )}
           <Notice message={error} />
           <Notice message={success} success />
           {mode === "cadastro" && (
@@ -188,6 +209,7 @@ export default function AuthForm({ mode }) {
             className="btn"
             disabled={
               busy ||
+              !ready ||
               (["confirmar-email", "redefinir-senha"].includes(mode) && !token)
             }
           >

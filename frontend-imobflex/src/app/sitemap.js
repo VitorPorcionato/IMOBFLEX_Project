@@ -1,7 +1,7 @@
 import { publicApi } from "@/lib/api";
 export default async function sitemap() {
   const base = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
-  const urls = ["", "/imoveis", "/sobre"].map((p) => ({ url: base + p }));
+  const urls = ["", "/imoveis", "/sobre", "/contato"].map((p) => ({ url: base + p }));
   try {
     const first = await publicApi("/properties");
     for (let page = 0; page < Math.ceil(first.total / 12); page++) {

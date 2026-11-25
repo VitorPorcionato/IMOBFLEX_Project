@@ -1,9 +1,83 @@
 @import "tailwindcss";
-@import "@fontsource/source-sans-3/400.css";
-@import "@fontsource/source-sans-3/600.css";
-@import "@fontsource/source-sans-3/700.css";
-@import "@fontsource/source-serif-4/400.css";
-@import "@fontsource/source-serif-4/500.css";
+@import "../../public/assets/motion/motion.css";
+.login-profiles {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+.login-profiles legend {
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+.login-profile-options {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+.login-profile-options label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 52px;
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-control);
+  cursor: pointer;
+  font-weight: 600;
+  transition:
+    border-color 0.18s,
+    background-color 0.18s;
+}
+.login-profile-options label.selected {
+  border-color: var(--color-crimson);
+  background: #fff4f6;
+  color: var(--color-wine);
+}
+.login-profile-options label:hover {
+  border-color: var(--color-crimson);
+}
+.login-profile-options label:focus-within {
+  outline: 3px solid var(--color-crimson);
+  outline-offset: 3px;
+}
+.login-profile-options input[type="radio"] {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  flex-shrink: 0;
+  accent-color: var(--color-crimson);
+}
+.login-profiles > p {
+  font-size: 0.9rem;
+  margin: 12px 0 0;
+}
+.client-section {
+  margin: 32px 0;
+}
+.client-overview .stats {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.client-overview .stat:focus-visible {
+  outline: 3px solid var(--color-crimson);
+  outline-offset: 3px;
+}
+@media (max-width: 640px) {
+  .client-overview .stats {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 400px) {
+  .login-profile-options {
+    grid-template-columns: 1fr;
+  }
+  .login-profile-options label {
+    justify-content: flex-start;
+    padding: 12px;
+    min-height: 52px;
+  }
+}
 @theme {
   --color-crimson: #9b1536;
   --color-wine: #6e1028;
@@ -862,11 +936,6 @@ html {
   scroll-margin-block: 90px;
 }
 @media (hover: hover) {
-  .property-card:hover {
-    transform: translateY(-3px);
-    border-color: #d5bcc3;
-    box-shadow: 0 12px 30px #6e102814;
-  }
   .whatsapp-float:hover {
     transform: translateY(-3px) scale(1.04);
     box-shadow: 0 8px 24px #0004;

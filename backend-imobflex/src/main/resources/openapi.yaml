@@ -118,7 +118,7 @@
     },
     "/auth/login": {
       "post": {
-        "summary": "Autenticar e renovar identificador de sessão",
+        "summary": "Autenticar no perfil cadastrado e renovar identificador de sessão",
         "parameters": [],
         "responses": {
           "200": {
@@ -155,6 +155,15 @@
                   },
                   "password": {
                     "type": "string"
+                  },
+                  "role": {
+                    "type": "string",
+                    "enum": [
+                      "CLIENT",
+                      "BROKER",
+                      "ADMIN"
+                    ],
+                    "description": "Opcional para compatibilidade. Quando informado, deve corresponder ao perfil da conta; divergência retorna 403 sem criar sessão. Não concede permissões."
                   }
                 },
                 "required": [
@@ -2541,6 +2550,54 @@
           },
           "404": {
             "description": "Versão inexistente"
+          }
+        }
+      }
+    },
+    "/public/chat": {
+      "post": {
+        "summary": "Assistente público, somente leitura; IA opcional com autorização explícita",
+        "security": [],
+        "description": "CSRF obrigatório, corpo máximo 8 KiB, 10 perguntas por minuto/sessão e 60/minuto/instância. Sem chave ou em falha da Groq, retorna orientação LOCAL. Sem histórico de conversa persistido.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "message"
+                ],
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 1000
+                  },
+                  "useAi": {
+                    "type": "boolean",
+                    "default": false
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "reply, links (title/href internos), mode LOCAL ou GROQ"
+          },
+          "400": {
+            "description": "Mensagem inválida ou formato de dado pessoal detectado"
+          },
+          "403": {
+            "description": "CSRF ausente/inválido"
+          },
+          "413": {
+            "description": "Corpo excede 8 KiB"
+          },
+          "429": {
+            "description": "Limite de solicitações atingido"
           }
         }
       }

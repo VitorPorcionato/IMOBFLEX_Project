@@ -40,6 +40,34 @@ export default async function LegalDocument({ kind }) {
             ),
           )}
       </div>
+      {kind === "privacy" && (
+        <section className="privacy-panel legal-copy">
+          <h2>Preferência de aparência</h2>
+          <p>
+            Ao escolher o modo claro ou escuro no cabeçalho, o cookie funcional
+            imobflex-theme conserva somente essa escolha por seis meses. Ele não
+            identifica você nem acompanha sua navegação. Você pode trocar o tema
+            a qualquer momento ou remover o cookie nas configurações do
+            navegador.
+          </p>
+          <h2>Assistente virtual e uso opcional de IA</h2>
+          <p>
+            As orientações locais do assistente não são enviadas a um provedor
+            de IA. Ao marcar a autorização no chat, sua pergunta e uma
+            orientação pública da Imobflex poderão ser enviadas à Groq para
+            gerar a resposta. Não envie documentos, senhas ou informações
+            pessoais. Essa autorização é independente de marketing e cookies
+            opcionais e pode ser desmarcada antes de cada envio.
+          </p>
+          <p>
+            A aplicação não grava o texto da conversa no banco. As mensagens
+            ficam na memória da página e podem ser apagadas em Limpar conversa.
+            Se a IA estiver indisponível, o assistente apresenta uma orientação
+            local. O atendimento de direitos continua disponível na Central de
+            Privacidade.
+          </p>
+        </section>
+      )}
       <Link className="btn secondary" href="/central-privacidade">
         Acessar meus dados e escolhas
       </Link>

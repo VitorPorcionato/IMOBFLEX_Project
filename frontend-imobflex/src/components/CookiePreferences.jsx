@@ -56,7 +56,8 @@ export default function CookiePreferences() {
             <p>
               Usamos cookies necessários para segurança e acesso à conta. Sua
               escolha de opcionais fica guardada por seis meses. Hoje não usamos
-              rastreadores opcionais.
+              rastreadores opcionais. Ao trocar o tema, sua preferência de
+              aparência também fica salva por seis meses.
             </p>
             <Link href="/privacidade">Entenda os cookies e seus dados</Link>
           </div>

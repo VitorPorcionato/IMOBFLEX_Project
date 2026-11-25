@@ -34,6 +34,8 @@ services:
       BOOTSTRAP_EMAIL: ${BOOTSTRAP_EMAIL}
       BOOTSTRAP_PASSWORD: ${BOOTSTRAP_PASSWORD}
       UPLOAD_PATH: /app/uploads
+      GROQ_API_KEY: ${GROQ_API_KEY:-}
+      GROQ_MODEL: ${GROQ_MODEL:-llama-3.3-70b-versatile}
     volumes: ["uploads:/app/uploads"]
     depends_on:
       mysql: {condition: service_healthy}

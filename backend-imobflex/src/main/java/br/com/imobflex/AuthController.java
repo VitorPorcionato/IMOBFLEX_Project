@@ -28,7 +28,10 @@ class AuthController {
     this.contexts = contexts;
   }
 
-  record Login(@NotBlank @Email String email, @NotBlank String password) {}
+  record Login(
+      @NotBlank @Email String email,
+      @NotBlank String password,
+      @Pattern(regexp = "CLIENT|BROKER|ADMIN") String role) {}
 
   record EmailInput(@Email @NotBlank String email) {}
 
@@ -72,6 +75,8 @@ class AuthController {
     }
     if (!Db.yes(u.get("active")) || !Db.yes(u.get("confirmed")) || u.get("role").equals("OWNER"))
       throw new Fault(403, "Confirme seu e-mail e verifique se a conta possui acesso ao portal.");
+    if (r.role() != null && !r.role().equals(u.get("role")))
+      throw new Fault(403, "Esta conta não possui o perfil selecionado. Escolha o acesso correspondente à sua conta.");
     db.update(
         "UPDATE users SET"
             + " last_active_at=CURRENT_TIMESTAMP(6),inactivity_warned_at=NULL,failed_logins=0,locked_until=NULL"

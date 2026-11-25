@@ -65,6 +65,14 @@ npm run dev
 
 Backend: porta 8080; frontend: 3000; SMTP: 1025. No Linux/macOS use `./mvnw`.
 
+## Acesso por perfil
+
+No login, selecione **Cliente**, **Corretor** ou **Admin** e use as credenciais da conta correspondente. A seleção é validada pelo backend e não altera as permissões cadastradas. Contas de corretor são cadastradas pela administração; o autocadastro continua exclusivo de clientes.
+
+Após entrar, `/painel` abre os indicadores para a equipe ou a área do cliente, com próximas visitas e notificações. O corretor opera imóveis e atendimentos atribuídos; o administrador também acessa equipe, auditoria e solicitações de privacidade. Para cadastrar ou alterar dados, contas criadas pela administração precisam registrar seu próprio aceite dos termos na Central de Privacidade.
+
+Credenciais e provisionamento de contas locais ficam fora do código e dos seeds versionados.
+
 ## Estrutura
 
 - `frontend-imobflex`: páginas públicas, formulários e painéis.

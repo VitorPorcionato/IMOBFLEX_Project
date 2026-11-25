@@ -1,0 +1,461 @@
+@import "@fontsource/dm-sans/latin-400.css";
+@import "@fontsource/dm-sans/latin-500.css";
+@import "@fontsource/dm-sans/latin-600.css";
+@import "@fontsource/dm-sans/latin-700.css";
+@import "@fontsource/manrope/latin-400.css";
+@import "@fontsource/manrope/latin-600.css";
+@import "@fontsource/manrope/latin-700.css";
+:root {
+  --font-sans: "DM Sans", sans-serif;
+  --font-serif: "Manrope", sans-serif;
+  --radius-control: 12px;
+  --radius-card: 20px;
+  --accent: var(--color-crimson);
+  --ink: var(--color-ink);
+  --line: var(--border);
+  --bg: var(--surface);
+}
+body {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+h1,
+h2 {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  letter-spacing: -0.045em;
+  line-height: 1.16;
+}
+h3,
+.brand-name {
+  font-family: var(--font-serif);
+  font-weight: 700;
+}
+.property-body :is(h2, h3) {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+.nav {
+  gap: 20px;
+}
+.brand-name small {
+  max-width: 24ch;
+}
+.company-hero.hero {
+  background: var(--page);
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  gap: clamp(32px, 5vw, 80px);
+  align-items: center;
+  min-height: calc(100svh - 96px);
+  padding-block: 64px;
+}
+.company-copy {
+  max-width: 62ch;
+}
+.company-copy h1 {
+  font-size: clamp(2.1rem, 3.9vw, 3.6rem);
+  max-width: 18ch;
+}
+.company-kicker {
+  font-weight: 600;
+  color: var(--color-crimson);
+  margin-bottom: 24px;
+}
+.company-lead {
+  font-size: clamp(1.05rem, 1.3vw, 1.2rem);
+  line-height: 1.75;
+  margin-bottom: 32px;
+}
+.company-context {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-top: 24px;
+}
+.company-photo {
+  margin: 0;
+  overflow: hidden;
+  border-radius: 24px;
+  height: min(64vh, 620px);
+  min-height: 400px;
+  background: var(--surface-soft);
+}
+.company-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.company-process {
+  background: var(--surface-soft);
+}
+.company-process-inner {
+  min-height: 100svh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: clamp(32px, 8vw, 120px);
+  padding-block: 80px;
+}
+.company-process h2 {
+  max-width: 15ch;
+}
+.company-principles {
+  margin: 0;
+}
+.company-principles > div {
+  padding-block: 24px;
+  border-bottom: 1px solid var(--border);
+}
+.company-principles dt {
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.company-principles dd {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.7;
+}
+.contact-hero.hero {
+  grid-template-columns: 1.2fr 1fr;
+}
+.contact-options {
+  margin-top: 40px;
+  display: grid;
+  gap: 24px;
+}
+.contact-options > div {
+  display: flex;
+  gap: 16px;
+  align-items: start;
+}
+.contact-options svg {
+  color: var(--color-crimson);
+  margin-top: 4px;
+}
+.contact-options h2 {
+  font-size: 1rem;
+  margin-bottom: 8px;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+}
+.contact-options p {
+  font-size: 0.95rem;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+.contact-options a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  color: var(--color-crimson);
+}
+.chat-assistant {
+  position: fixed;
+  right: calc(max(16px, env(safe-area-inset-right)) + 68px);
+  bottom: max(16px, env(safe-area-inset-bottom));
+  z-index: 110;
+}
+.chat-launcher {
+  min-height: 56px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
+  border-radius: 28px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-card);
+  color: var(--action-text);
+  background: var(--color-crimson);
+  font-weight: 600;
+}
+.chat-launcher:hover {
+  background: var(--color-wine);
+}
+.chat-panel {
+  position: fixed;
+  bottom: calc(max(16px, env(safe-area-inset-bottom)) + 68px);
+  right: max(16px, env(safe-area-inset-right));
+  width: min(400px, calc(100vw - 32px));
+  height: min(560px, calc(100dvh - 116px));
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  box-shadow: 0 18px 70px #0003;
+}
+.chat-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--surface-accent);
+  padding: 14px;
+  flex-shrink: 0;
+}
+.chat-heading > div:nth-child(2) {
+  flex: 1;
+  min-width: 0;
+}
+.chat-heading h2 {
+  font-size: 1rem;
+  letter-spacing: -0.02em;
+  margin: 0 0 3px;
+}
+.chat-heading p {
+  font-size: 0.8rem;
+  margin: 0;
+  color: var(--muted);
+}
+.chat-monogram {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  background: var(--color-crimson);
+  color: var(--action-text);
+  border-radius: 12px;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+.chat-icon {
+  display: grid;
+  place-items: center;
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: 12px;
+  background: transparent;
+  border: 0;
+  color: var(--color-ink);
+}
+.chat-icon:hover {
+  background: var(--surface-soft);
+}
+.chat-messages {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: 16px;
+  overscroll-behavior: contain;
+}
+.chat-message {
+  background: var(--surface-soft);
+  padding: 12px 14px;
+  border-radius: 16px 16px 16px 4px;
+  margin-bottom: 14px;
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+.chat-message p {
+  margin: 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.chat-message.from-user {
+  background: var(--surface-accent);
+  margin-left: 32px;
+  border-radius: 16px 16px 4px 16px;
+}
+.chat-message a {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--color-crimson);
+  text-decoration: underline;
+}
+.chat-message small {
+  display: block;
+  font-size: 0.75rem;
+  margin-top: 8px;
+  color: var(--muted);
+}
+.chat-suggestions {
+  display: grid;
+  gap: 8px;
+}
+.chat-suggestions button {
+  text-align: left;
+  min-height: 44px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--color-crimson);
+  padding: 10px 12px;
+  border-radius: 12px;
+}
+.chat-suggestions button:hover {
+  background: var(--surface-accent);
+}
+.chat-form {
+  border-top: 1px solid var(--border);
+  padding: 14px;
+  flex-shrink: 0;
+}
+.chat-input {
+  display: flex;
+  gap: 8px;
+  margin-top: 6px;
+}
+.chat-input input {
+  margin: 0;
+  min-width: 0;
+  font-size: 1rem;
+}
+.chat-input .btn {
+  padding: 10px;
+  min-width: 46px;
+}
+.chat-consent {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-size: 0.78rem;
+  font-weight: 400;
+  min-height: 44px;
+  margin-top: 8px;
+}
+.chat-consent input {
+  width: 20px;
+  min-height: 20px;
+  height: 20px;
+  margin: 0;
+  flex-shrink: 0;
+  accent-color: var(--color-crimson);
+}
+.chat-privacy {
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin: 6px 0 0;
+}
+.chat-privacy a {
+  text-decoration: underline;
+}
+@media (max-width: 1199px) {
+  .nav {
+    gap: 12px;
+    font-size: 0.9rem;
+  }
+  .header-start {
+    gap: 8px;
+  }
+  .brand-name small {
+    display: none;
+  }
+}
+@media (max-width: 1024px) {
+  .company-hero.hero {
+    gap: 32px;
+    padding-block: 48px;
+  }
+  .company-photo {
+    min-height: 360px;
+    height: 55vh;
+  }
+  .company-process-inner {
+    gap: 40px;
+  }
+}
+@media (max-width: 640px) {
+  .company-hero.hero,
+  .contact-hero.hero,
+  .company-process-inner {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .company-hero.hero {
+    padding-block: 40px;
+  }
+  .company-photo {
+    height: 380px;
+    min-height: 0;
+  }
+  .company-process-inner {
+    padding-block: 56px;
+    min-height: 100svh;
+  }
+  .chat-launcher span {
+    display: none;
+  }
+  .chat-launcher {
+    width: 56px;
+    height: 56px;
+    padding: 0;
+    justify-content: center;
+  }
+  .chat-heading {
+    gap: 5px;
+    padding: 10px;
+  }
+  .chat-monogram {
+    display: none;
+  }
+  .chat-form {
+    padding: 10px;
+  }
+  .chat-panel {
+    height: min(560px, calc(100dvh - 116px));
+  }
+  .company-copy h1 {
+    max-width: 20ch;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .company-copy {
+    animation: company-enter 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  @keyframes company-enter {
+    from {
+      opacity: 0.6;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+.company-hero.hero,
+.company-process-inner {
+  align-items: start;
+}
+.company-principles > div:first-child {
+  padding-top: 0;
+}
+.company-process-photo {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  border-radius: 16px;
+  margin: 24px 0;
+}
+.skip:not(:focus) {
+  left: 0;
+  top: 0;
+  width: 1px;
+  height: 1px;
+  clip-path: inset(50%);
+  overflow: hidden;
+}
+.brand-name small {
+  white-space: nowrap;
+  font-weight: 400;
+}
+@media (min-width: 1025px) {
+  .chat-assistant {
+    right: calc(max(24px, env(safe-area-inset-right)) + 72px);
+    bottom: max(24px, env(safe-area-inset-bottom));
+  }
+  .chat-launcher {
+    min-height: 60px;
+  }
+  .chat-panel {
+    right: max(24px, env(safe-area-inset-right));
+    bottom: calc(max(24px, env(safe-area-inset-bottom)) + 72px);
+    height: min(560px, calc(100dvh - 128px));
+  }
+}

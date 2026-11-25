@@ -62,7 +62,7 @@ jobs:
           exit 1
       - run: npm ci && npx playwright install --with-deps chromium
         working-directory: frontend-imobflex
-      - run: npx playwright test tests/e2e/fullstack.spec.js --project=chromium --workers=1
+      - run: npx playwright test tests/e2e/fullstack.spec.js tests/e2e/visual-refresh.spec.js tests/e2e/responsive.spec.js --project=chromium --workers=1
         working-directory: frontend-imobflex
       - run: docker compose logs
         if: failure()

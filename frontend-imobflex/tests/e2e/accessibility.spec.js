@@ -6,6 +6,7 @@ test("privacy flows meet automated WCAG AA checks", async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
     for (const path of [
       "/cadastro",
+      "/login",
       "/termos",
       "/privacidade",
       "/central-privacidade",
